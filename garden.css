@@ -1,0 +1,48 @@
+/* Painted garden + independently hinged iron gates. */
+:root{--wine:#52604b;--paper:#f7f6ef;--ink:#414b3d;--muted:#7f8677;--line:#d9dece}
+body{background:#e8eae2}body.opening-active{overflow:hidden}
+.invitation-opening[hidden]{display:none}
+.garden-opening{position:fixed;inset:0;width:min(100%,520px);margin-inline:auto;z-index:20;isolation:isolate;overflow:hidden;background:#edeee2;color:#47533f}
+.garden-world{position:absolute;inset:0;transform-origin:50% 58%;transition:transform 3.1s .35s cubic-bezier(.3,.15,.15,1)}
+.garden-world img{width:100%;height:100%;object-fit:fill;display:block}
+.garden-light{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 26%,#ffffe539,transparent 60%);pointer-events:none;mix-blend-mode:screen}
+.garden-heading{position:absolute;top:max(8%,env(safe-area-inset-top));left:12%;right:12%;text-align:center;transition:opacity .7s,transform 1s;text-shadow:0 1px 12px #ffffefd9}
+.garden-heading p{font-size:9px;letter-spacing:.24em;margin:0 0 17px}
+.garden-heading>span{font-family:var(--serif);font-size:clamp(28px,8vw,40px);font-weight:400;line-height:1.1;letter-spacing:-.025em}
+.garden-heading i{font-size:.72em;margin:0 5px}
+.garden-heading small{display:block;font-size:10px;letter-spacing:.2em;margin-top:15px}
+.garden-gates{position:absolute;left:14%;right:14%;top:35%;bottom:25%;perspective:1100px;transform-origin:50% 100%;transition:transform 3s .4s cubic-bezier(.3,.15,.15,1);filter:drop-shadow(2px 5px 2px #34452c35)}
+.garden-gate{position:absolute;top:0;bottom:0;width:50.15%;color:#465343;transition:transform 2.25s cubic-bezier(.46,.05,.18,1),opacity .45s 2s;backface-visibility:hidden}
+.garden-gate svg{display:block;width:100%;height:100%;stroke-width:1.35}
+.gate-left{left:0;transform-origin:4% center}
+.gate-right{right:0;transform-origin:96% center}.gate-right svg{transform:scaleX(-1)}
+.garden-trigger{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:transparent;color:inherit;cursor:pointer;touch-action:manipulation}
+.garden-trigger:focus-visible{outline:2px solid #586e47;outline-offset:-12px}
+.garden-hint{position:absolute;bottom:max(7%,env(safe-area-inset-bottom));left:0;right:0;display:flex;align-items:center;justify-content:center;gap:14px;font-size:12px;letter-spacing:.09em;text-shadow:0 1px 7px #fff;transition:opacity .35s}
+.hint-line{width:25px;height:1px;background:#6e7d5d}.hint-arrow{font-size:17px}
+.garden-opening.is-opening .gate-left{transform:rotateY(-105deg)}
+.garden-opening.is-opening .gate-right{transform:rotateY(105deg)}
+.garden-opening.is-opening .garden-gate{opacity:0}
+.garden-opening.is-opening .garden-gates{transform:scale(1.4)}
+.garden-opening.is-opening .garden-world{transform:scale(1.24)}
+.garden-opening.is-opening .garden-heading{opacity:0;transform:translateY(-12px)}
+.garden-opening.is-opening .garden-hint{opacity:0}
+.garden-opening.is-opening{animation:garden-dissolve .8s 2.6s both;pointer-events:none}
+@keyframes garden-dissolve{from{opacity:1}to{opacity:0;visibility:hidden}}
+.opening-active main{opacity:0}.opening-active.opening-reveal main{opacity:1;transition:opacity .8s 2.6s}
+.cover{height:100svh;min-height:600px;max-height:1100px;overflow:hidden;background:#edf0e4;color:#425238}
+.hero-image{transform:scale(1.24);transform-origin:50% 58%}.hero-image img{object-fit:fill;object-position:center}
+.hero-image:after{background:linear-gradient(180deg,#f8f9ec59,transparent 32%,transparent 54%,#f7f6efd9 88%,#f7f6effa)}
+.topline{border:0;inset:0 26px auto;height:76px}.monogram{font-size:30px}
+.reopen-garden{font-family:var(--sans);font-size:11px;padding:12px 0;background:none;color:inherit;border:0;min-height:44px}
+.hero-type{top:auto;bottom:118px;left:25px;right:25px;text-align:center}
+.hero-type .eyebrow{font-size:8px;letter-spacing:.19em;margin-bottom:21px}
+.hero-type h1{font-family:var(--korean);font-size:29px;letter-spacing:-.05em;line-height:1.65;margin:0;font-weight:400}
+.hero-names{font-size:15px;letter-spacing:.13em;margin:17px 0 0}.hero-names span{font-size:20px;margin:0 12px}
+.hero-bottom{bottom:30px;left:26px;right:26px;align-items:center}.hero-bottom>p{font-family:var(--sans);font-size:11px;line-height:1.9;letter-spacing:0}
+.scroll-link{font-size:7px;gap:8px}.scroll-link span{font-size:21px}
+.calendar-section{background:#e9eddf}.countdown{background:#dfe5d4;color:#65705d}.date-display span{color:#93a184}
+.calendar-row>span:first-child{color:#9c7c75}.calendar-row .wedding-day{box-shadow:0 0 0 5px #52604b0c}
+.families,.invitation-copy{color:#616b58}.directions details p{color:#737c69}h1[tabindex='-1']:focus{outline:none}
+@media(max-height:650px){.garden-heading{top:6%}.garden-heading p{margin-bottom:10px;font-size:8px}.garden-heading small{margin-top:10px}.garden-heading>span{font-size:29px}.cover{min-height:100svh}.hero-type{bottom:99px}.hero-type h1{font-size:24px}.hero-type .eyebrow{margin-bottom:11px}.hero-bottom{bottom:16px}.hero-names{margin-top:11px}}
+@media(prefers-reduced-motion:reduce){.garden-opening.is-opening{display:none}.opening-active main{opacity:1}.garden-world,.garden-gates,.garden-gate{transition:none}}

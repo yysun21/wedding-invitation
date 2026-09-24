@@ -3,28 +3,42 @@
 const opening = document.getElementById('invitation-opening');
 const openButton = document.getElementById('open-invitation');
 const invitationMain = document.querySelector('main');
-if (!location.hash) {
+let openingStarted = false;
+let openingTimer;
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function showGarden() {
+  clearTimeout(openingTimer);
+  openingStarted = false;
+  opening.classList.remove('is-opening');
+  openButton.removeAttribute('aria-disabled');
   opening.hidden = false;
+  document.body.classList.remove('opening-reveal');
   document.body.classList.add('opening-active');
   invitationMain.inert = true;
   window.scrollTo({top:0, behavior:'instant'});
-  let openingStarted = false;
-  openButton.addEventListener('click', () => {
-    if (openingStarted) return;
-    openingStarted = true;
-    opening.classList.add('is-opening');
-    document.body.classList.add('opening-reveal');
-    const finishOpening = () => {
-      opening.hidden = true;
-      document.body.classList.remove('opening-active', 'opening-reveal');
-      invitationMain.inert = false;
-      const title = document.querySelector('h1');
-      title.setAttribute('tabindex','-1');
-      title.focus({preventScroll:true});
-    };
-    window.setTimeout(finishOpening, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1500);
-  });
 }
+function finishOpening() {
+  opening.hidden = true;
+  document.body.classList.remove('opening-active', 'opening-reveal');
+  invitationMain.inert = false;
+  const title = document.querySelector('h1');
+  title.setAttribute('tabindex','-1');
+  title.focus({preventScroll:true});
+}
+if (!location.hash) showGarden();
+openButton.addEventListener('click', () => {
+  if (openingStarted) return;
+  openingStarted = true;
+  openButton.setAttribute('aria-disabled', 'true');
+  opening.classList.add('is-opening');
+  document.body.classList.add('opening-reveal');
+  if (reducedMotion.matches) finishOpening();
+  else openingTimer = setTimeout(finishOpening, 3400);
+});
+document.getElementById('reopen-garden').addEventListener('click', () => {
+  showGarden();
+  openButton.focus({preventScroll:true});
+});
 
 // 확정된 예식 시각을 입력하면 모든 화면에 함께 반영됩니다. 예: '오후 1시'
 const ceremonyTime = '오후 5시 30분';

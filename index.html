@@ -10,27 +10,23 @@
   <title>윤영선 · 이은지 | 2027.02.27</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23faf8f2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-size='37' fill='%2388795c'%3E%26%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="garden.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="invitation-opening" id="invitation-opening" hidden>
-    <div class="opening-door opening-left" aria-hidden="true"></div>
-    <div class="opening-door opening-right" aria-hidden="true"></div>
-    <button class="opening-trigger" id="open-invitation" type="button" aria-label="윤영선과 이은지의 청첩장 열기">
-      <span class="opening-kicker">A NEW CHAPTER, TOGETHER</span>
-      <span class="opening-title">우리의 봄에<br>초대합니다.</span>
-      <span class="opening-seal" aria-hidden="true">y<span>&</span>e</span>
-      <span class="opening-names">윤영선 <span>·</span> 이은지</span>
-      <span class="opening-date">2027. 02. 27.</span>
-      <span class="opening-hint">살짝 눌러 열어보세요 <span aria-hidden="true">↗</span></span>
-    </button>
+  <div class="invitation-opening garden-opening" id="invitation-opening" hidden>
+    <div class="garden-world" aria-hidden="true"><img src="garden-conservatory.jpg" alt="" width="1024" height="1792" fetchpriority="high"></div>
+    <div class="garden-light" aria-hidden="true"></div>
+    <div class="garden-heading" aria-hidden="true"><p>THE WEDDING OF</p><span>Youngsun <i>&</i> Eunji</span><small>2027. 02. 27</small></div>
+    <div class="garden-gates" aria-hidden="true"><div class="garden-gate gate-left"><svg viewBox="0 0 180 360" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="3" d="M10 356V107C62 105 112 39 173 39V356Z"/><path stroke-width="1.8" d="M17 344V115C66 112 117 49 165 48V344Z"/><path d="M28 100V344"/><path d="M52 92V344"/><path d="M76 83V344"/><path d="M100 75V344"/><path d="M124 67V344"/><path d="M148 59V344"/><path stroke-width="2.4" d="M12 286H172M12 299H172M12 329H172"/><path d="M40 274c-17-18-21-34-8-37 15-3 15 19 0 20m8 17c17-18 21-34 8-37-15-3-15 19 0 20"/><path d="M88 274c-17-18-21-34-8-37 15-3 15 19 0 20m8 17c17-18 21-34 8-37-15-3-15 19 0 20"/><path d="M136 274c-17-18-21-34-8-37 15-3 15 19 0 20m8 17c17-18 21-34 8-37-15-3-15 19 0 20"/><path stroke-width="2" d="M31 135c-16-26 4-40 17-24 10 15-2 30-14 22m29-4c-10-26 11-39 23-21 9 15-5 25-15 18m31-20c-15-26 5-44 20-28 13 15-2 33-15 25m30-23c-11-24 6-41 20-29 12 11 3 24-10 22"/><path stroke-width="2" d="M174 169h-6v28h6"/></g></svg></div><div class="garden-gate gate-right"><svg viewBox="0 0 180 360" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="3" d="M10 356V107C62 105 112 39 173 39V356Z"/><path stroke-width="1.8" d="M17 344V115C66 112 117 49 165 48V344Z"/><path d="M28 100V344"/><path d="M52 92V344"/><path d="M76 83V344"/><path d="M100 75V344"/><path d="M124 67V344"/><path d="M148 59V344"/><path stroke-width="2.4" d="M12 286H172M12 299H172M12 329H172"/><path d="M40 274c-17-18-21-34-8-37 15-3 15 19 0 20m8 17c17-18 21-34 8-37-15-3-15 19 0 20"/><path d="M88 274c-17-18-21-34-8-37 15-3 15 19 0 20m8 17c17-18 21-34 8-37-15-3-15 19 0 20"/><path d="M136 274c-17-18-21-34-8-37 15-3 15 19 0 20m8 17c17-18 21-34 8-37-15-3-15 19 0 20"/><path stroke-width="2" d="M31 135c-16-26 4-40 17-24 10 15-2 30-14 22m29-4c-10-26 11-39 23-21 9 15-5 25-15 18m31-20c-15-26 5-44 20-28 13 15-2 33-15 25m30-23c-11-24 6-41 20-29 12 11 3 24-10 22"/><path stroke-width="2" d="M174 169h-6v28h6"/></g></svg></div></div>
+    <button class="garden-trigger" id="open-invitation" type="button" aria-label="정원 문을 열고 윤영선과 이은지의 청첩장 보기"><span class="garden-hint"><span class="hint-line"></span>문을 열어보세요<span class="hint-arrow">↗</span></span></button>
   </div>
   <main>
     <header class="cover" id="top">
-      <nav class="topline" aria-label="청첩장 메뉴"><a href="#top" class="monogram" aria-label="첫 화면">y<span>&</span>e.</a><a href="#location-title">FEB 27, 2027 <span>↗</span></a></nav>
-      <div class="hero-image"><img src="spring-editorial.jpg" alt="햇살을 머금은 하얀 봄꽃과 와인색 꽃 한 송이" fetchpriority="high" width="1024" height="1536"></div>
-      <div class="hero-type"><p class="eyebrow">TOGETHER, INTO A NEW SEASON</p><h1>Our next<br><em>chapter.</em></h1><p class="hero-names">윤영선 <span>&</span> 이은지</p></div>
-      <div class="hero-bottom"><p>겨울의 끝,<br>우리의 봄이 시작됩니다.</p><a class="scroll-link" href="#invitation" aria-label="모시는 글 읽기">SCROLL TO EXPLORE <span>↓</span></a></div>
+      <nav class="topline" aria-label="청첩장 메뉴"><a href="#top" class="monogram" aria-label="첫 화면">y<span>&</span>e.</a><button class="reopen-garden" id="reopen-garden" type="button">다시 열기 ↻</button></nav>
+      <div class="hero-image"><img src="garden-conservatory.jpg" alt="흰 꽃이 핀 정원 길 너머로 보이는 유리 온실 일러스트" width="1024" height="1792"></div>
+      <div class="hero-type"><p class="eyebrow">IN THE GARDEN OF OUR BEGINNING</p><h1>우리의 봄에<br>초대합니다.</h1><p class="hero-names">윤영선 <span>&</span> 이은지</p></div>
+      <div class="hero-bottom"><p>2027년 2월 27일 · 오후 5시 30분<br>크레스트72 글라스 홀</p><a class="scroll-link" href="#invitation" aria-label="모시는 글 읽기">SCROLL TO EXPLORE <span>↓</span></a></div>
     </header>
     <div class="date-strip"><span>2027. 02. 27 <small>SAT</small></span><span>5:30 PM</span><span>CREST72</span></div>
 
