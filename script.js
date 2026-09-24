@@ -6,7 +6,7 @@ const invitationMain = document.querySelector('main');
 let openingStarted = false;
 let openingTimer;
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-function showGarden() {
+function showInvitation() {
   clearTimeout(openingTimer);
   openingStarted = false;
   opening.classList.remove('is-opening');
@@ -25,7 +25,7 @@ function finishOpening() {
   title.setAttribute('tabindex','-1');
   title.focus({preventScroll:true});
 }
-if (!location.hash) showGarden();
+if (!location.hash) showInvitation();
 openButton.addEventListener('click', () => {
   if (openingStarted) return;
   openingStarted = true;
@@ -33,10 +33,10 @@ openButton.addEventListener('click', () => {
   opening.classList.add('is-opening');
   document.body.classList.add('opening-reveal');
   if (reducedMotion.matches) finishOpening();
-  else openingTimer = setTimeout(finishOpening, 3400);
+  else openingTimer = setTimeout(finishOpening, 1050);
 });
-document.getElementById('reopen-garden').addEventListener('click', () => {
-  showGarden();
+document.getElementById('reopen-invitation').addEventListener('click', () => {
+  showInvitation();
   openButton.focus({preventScroll:true});
 });
 
