@@ -9,25 +9,28 @@
   <meta property="og:description" content="2027년 2월 27일 토요일 오후 5시 30분 · 크레스트72 글라스 홀">
   <title>윤영선 · 이은지 | 2027.02.27</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23faf8f2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-size='37' fill='%2388795c'%3E%26%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=20260925-pink-live1">
+  <script src="media-config.js?v=20260925-pink-live1" defer></script>
+  <script src="script.js?v=20260925-pink-live1" defer></script>
+  <script type="module" src="ribbon-scene.js?v=20260925-pink-live1"></script>
 </head>
 <body>
-  <div class="invitation-opening" id="invitation-opening" hidden>
-    <div class="opening-heading" aria-hidden="true"><span>WEDDING INVITATION</span><span>2027</span></div>
-    <div class="door-frame">
-      <div class="opening-sheet sheet-left" aria-hidden="true"><div class="sheet-content">
-        <span class="sheet-caption">소중한 당신께</span>
-        <div class="sheet-message"><p>저희,<br>결혼합니다.</p><div class="sheet-names">윤영선 <i>&</i> 이은지</div></div>
-        <div class="sheet-event"><span>2027. 02. 27</span><span>토요일 오후 5시 30분</span><span>크레스트72 글라스 홀</span></div>
-      </div></div>
-      <div class="opening-sheet sheet-right" aria-hidden="true"><div class="sheet-content">
-        <span class="sheet-caption">소중한 당신께</span>
-        <div class="sheet-message"><p>저희,<br>결혼합니다.</p><div class="sheet-names">윤영선 <i>&</i> 이은지</div></div>
-        <div class="sheet-event"><span>2027. 02. 27</span><span>토요일 오후 5시 30분</span><span>크레스트72 글라스 홀</span></div>
-      </div></div>
+  <div class="invitation-opening" id="invitation-opening" data-motion="heart-out" hidden>
+    <div class="opening-heading" aria-hidden="true"><span>A PERSONAL INVITATION</span><span>27 FEB 2027</span></div>
+    <div class="opening-light" aria-hidden="true"></div>
+    <div class="ribbon-wrap ribbon-one" aria-hidden="true">
+      <svg viewBox="0 0 400 600" fill="none"><defs><linearGradient id="ribbon-ink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070707"/><stop offset=".48" stop-color="#303030"/><stop offset=".65" stop-color="#0c0c0c"/><stop offset="1" stop-color="#242424"/></linearGradient><path id="ribbon-line" d="M340 -65 C360 155 95 130 92 345 S280 475 250 680"/></defs><use href="#ribbon-line" stroke="url(#ribbon-ink)" stroke-width="38"/><text fill="#f8f8f8" font-family="Arial,sans-serif" font-size="10" letter-spacing="4"><textPath href="#ribbon-line" startOffset="17%">WITH LOVE · WITH LOVE · WITH LOVE</textPath></text></svg>
     </div>
-    <button id="open-invitation" class="opening-trigger" type="button" aria-label="윤영선과 이은지의 초대장 열기"><span>초대장 열기 <span aria-hidden="true">↗</span></span></button>
+    <div class="ribbon-wrap ribbon-two" aria-hidden="true">
+      <svg viewBox="0 0 400 600" fill="none"><path id="ribbon-line-two" d="M90 -70 C-80 160 360 100 262 340 S40 425 135 690" stroke="#111" stroke-width="44"/><text fill="#f8f8f8" font-family="Arial,sans-serif" font-size="10" letter-spacing="4"><textPath href="#ribbon-line-two" startOffset="20%">OUR NEXT CHAPTER · 27 FEBRUARY 2027</textPath></text></svg>
+    </div>
+    <div class="opening-center">
+      <span class="opening-symbol" aria-hidden="true">&amp;</span><p class="opening-kicker">THE WEDDING INVITATION</p>
+      <p class="opening-title">함께 맞는, 봄.</p>
+      <p class="opening-description">우리의 새로운 시작에<br>당신을 초대합니다.</p>
+      <button id="open-invitation" class="opening-trigger" type="button" aria-label="윤영선과 이은지의 초대장 열기"><span>초대장 열기</span><span aria-hidden="true">↗</span></button>
+    </div>
+    <p class="opening-signature">영선과 은지의 결혼식 <span>2027. 02. 27</span></p>
   </div>
   <main>
     <header class="welcome" id="top">
@@ -40,6 +43,12 @@
       <p class="eyebrow">INVITATION</p><h2 id="invitation-title">마음을 담아 초대합니다</h2>
       <div class="invitation-copy"><p>가장 추운 계절에 만나<br>서로의 온기를 알아본 두 사람입니다.</p><p>함께한 시간 속에서<br>차가운 계절마저 따뜻한 기억이 되었고,<br>어느새 같은 봄을 기다리게 되었습니다.</p><p>겨울의 끝, 봄의 문턱에서<br>저희의 시작을 축복해 주시면 감사하겠습니다.</p></div>
       <div class="families"><p><span>윤석조 · 홍성금<small>의 아들</small></span><strong>영선</strong></p><p><span>이경환 · 권미경<small>의 딸</small></span><strong>은지</strong></p></div>
+    </section>
+
+    <section class="gallery-section section" id="gallery" aria-labelledby="gallery-title" hidden>
+      <div class="section-heading"><p class="eyebrow">OUR MOMENTS</p><h2 id="gallery-title">함께한 순간들</h2></div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <p class="gallery-caption" id="gallery-caption">사진을 누르면 크게 볼 수 있어요.</p>
     </section>
 
     <section class="calendar-section section" id="date" aria-labelledby="date-title">
@@ -61,8 +70,14 @@
       </div>
     </section>
     <footer><p class="closing">저희의 첫 봄을<br>함께해 주셔서 감사합니다.</p><p class="footer-names">영선 · 은지 드림</p><p class="footer-date">FEBRUARY 27, 2027</p></footer>
-    <nav class="quick-nav" aria-label="빠른 안내"><a href="#date">예식 안내</a><a href="#location">오시는 길</a><button type="button" id="share">청첩장 공유 <span aria-hidden="true">↗</span></button></nav>
+    <nav class="quick-nav" aria-label="빠른 안내"><a href="#date">예식 안내</a><a href="#location">오시는 길</a><button type="button" id="share">청첩장 공유 <span aria-hidden="true">↗</span></button><button type="button" id="music-toggle" class="music-toggle" aria-label="배경음악 재생" aria-pressed="false" hidden><span aria-hidden="true">♪</span></button></nav>
   </main>
+  <audio id="background-music" loop preload="none"></audio>
+  <dialog id="photo-viewer" class="photo-viewer" aria-label="사진 크게 보기">
+    <button type="button" id="photo-close" class="photo-close" aria-label="사진 닫기">×</button>
+    <figure><img id="viewer-image" alt=""><figcaption id="photo-position" aria-live="polite"></figcaption></figure>
+    <div class="photo-controls"><button type="button" id="photo-prev" aria-label="이전 사진">←</button><button type="button" id="photo-next" aria-label="다음 사진">→</button></div>
+  </dialog>
   <div id="notice" role="status" aria-live="polite"></div>
 </body>
 </html>
