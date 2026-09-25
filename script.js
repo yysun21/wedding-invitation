@@ -139,7 +139,7 @@ if (photos.length) {
   gallery.hidden = false;
   document.querySelector('.photo-controls').hidden = photos.length < 2;
 }
-const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('media-preview');
+const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
 if (previewMedia && !photos.length) {
   gallery.hidden = false;
   for (let i = 1; i <= 3; i++) {
@@ -181,11 +181,16 @@ audio.addEventListener('error', () => {
   notify('배경음악을 불러오지 못했습니다.');
 });
 musicButton.addEventListener('click', () => {
+  if (!music.src) { notify('배경음악 파일을 아직 등록하지 않았습니다.'); return; }
   if (audio.paused) { musicPausedByGuest = false; playMusic(); }
   else { musicPausedByGuest = true; audio.pause(); }
 });
 document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); });
 if (previewMedia && !music.src) {
+  musicButton.hidden = false;
+  musicButton.setAttribute('aria-label', '배경음악 준비 중');
+  musicButton.setAttribute('aria-disabled', 'true');
+  document.querySelector('.quick-nav').classList.add('has-music');
   const note = document.createElement('p'); note.className = 'media-preview-note';
   note.textContent = '배경음악을 등록하면 초대장을 열 때 재생됩니다. 하단에서 언제든 끌 수 있어요.';
   gallery.append(note);
