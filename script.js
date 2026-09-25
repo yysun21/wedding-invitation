@@ -140,7 +140,7 @@ if (photos.length) {
   document.querySelector('.photo-controls').hidden = photos.length < 2;
 }
 const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
-if (previewMedia && !photos.length) {
+if (!photos.length) {
   gallery.hidden = false;
   for (let i = 1; i <= 3; i++) {
     const slot = document.createElement('div'); slot.className = 'photo-placeholder';
@@ -148,7 +148,7 @@ if (previewMedia && !photos.length) {
     slot.append(number, document.createTextNode(i === 1 ? '대표 사진' : '함께한 순간'));
     grid.append(slot);
   }
-  document.getElementById('gallery-caption').textContent = '사진이 들어갈 자리입니다. 실제 사진은 아직 등록하지 않았습니다.';
+  document.getElementById('gallery-caption').textContent = '우리의 사진을 곧 이곳에 담을게요.';
 }
 const audio = document.getElementById('background-music');
 const musicButton = document.getElementById('music-toggle');
@@ -213,4 +213,16 @@ if(['localhost','127.0.0.1'].includes(location.hostname)&&new URLSearchParams(lo
   const actions=document.createElement('div');actions.className='motion-actions';
   for(const [label,action] of [['다시 재생',()=>{showInvitation();requestAnimationFrame(()=>requestAnimationFrame(()=>openButton.click()));}],['중간 모양 보기',()=>{showInvitation();opening.dataset.inspect='true';}]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=action;actions.append(b);}
   panel.append(actions);document.body.append(panel);choose(variants.find(v=>v[0]===new URLSearchParams(location.search).get('motion'))||variants[0]);
+}
+
+// Local typography study: same content, three independent type pairings.
+if (['localhost','127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('type-preview')) {
+  finishOpening();
+  document.body.classList.add('type-review');
+  const panel = document.createElement('aside'); panel.className='type-picker'; panel.setAttribute('aria-label','글꼴 시안 비교');
+  const label=document.createElement('p'); label.textContent='TYPE STUDY'; panel.append(label);
+  const options=[['editorial','01 얇은 명조','가벼운 명조 제목 · 단정한 고딕 본문'],['literary','02 차분한 명조','작고 여유 있는 명조 제목 · 명조 초대글'],['modern','03 절제된 고딕','작은 고딕 제목 · 넓은 여백과 얇은 영문 숫자']];
+  const note=document.createElement('p'); note.className='type-note'; note.setAttribute('aria-live','polite');
+  for(const [key,title,description] of options){const b=document.createElement('button'); b.type='button';b.textContent=title;b.dataset.type=key;b.onclick=()=>{document.body.dataset.typography=key;note.textContent=description;for(const el of panel.querySelectorAll('button'))el.setAttribute('aria-pressed',String(el===b));};panel.append(b);}
+  panel.append(note);document.body.append(panel);panel.querySelector('[data-type="literary"]').click();
 }
