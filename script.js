@@ -33,7 +33,7 @@ openButton.addEventListener('click', () => {
   opening.classList.add('is-opening');
   document.body.classList.add('opening-reveal');
   if (reducedMotion.matches) finishOpening();
-  else openingTimer = setTimeout(finishOpening, 1050);
+  else openingTimer = setTimeout(finishOpening, 1400);
 });
 document.getElementById('reopen-invitation').addEventListener('click', () => {
   showInvitation();
