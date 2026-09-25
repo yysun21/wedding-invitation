@@ -94,62 +94,25 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
 const media = window.INVITATION_MEDIA || {};
 const gallery = document.getElementById('gallery');
 const grid = document.getElementById('photo-grid');
-const viewer = document.getElementById('photo-viewer');
-const viewerImage = document.getElementById('viewer-image');
 const photos = Array.isArray(media.photos) ? media.photos.filter(p => p && typeof p.src === 'string' && p.src.trim()) : [];
-let photoIndex = 0;
-let photoTrigger;
-function displayPhoto(index) {
-  photoIndex = (index + photos.length) % photos.length;
-  const photo = photos[photoIndex];
-  viewerImage.src = photo.src;
-  viewerImage.alt = photo.alt || `영선과 은지의 사진 ${photoIndex + 1}`;
-  document.getElementById('photo-position').textContent = `${photoIndex + 1} / ${photos.length}`;
+function photoPlaceholder(index) {
+  const slot = document.createElement('div'); slot.className = 'photo-placeholder';
+  const number = document.createElement('span'); number.textContent = String(index + 1).padStart(2, '0');
+  slot.append(number, document.createTextNode(index === 0 ? '대표 사진' : '사진 준비 중'));
+  return slot;
 }
-function closePhoto() { viewer.close(); }
-viewer.addEventListener('close', () => {
-  document.body.classList.remove('viewer-open');
-  if (photoTrigger && photoTrigger.isConnected) photoTrigger.focus({preventScroll:true});
-});
-document.getElementById('photo-close').addEventListener('click', closePhoto);
-document.getElementById('photo-prev').addEventListener('click', () => displayPhoto(photoIndex - 1));
-document.getElementById('photo-next').addEventListener('click', () => displayPhoto(photoIndex + 1));
-viewer.addEventListener('keydown', event => {
-  if (event.key === 'ArrowLeft') { event.preventDefault(); displayPhoto(photoIndex - 1); }
-  if (event.key === 'ArrowRight') { event.preventDefault(); displayPhoto(photoIndex + 1); }
-});
-viewerImage.addEventListener('error', () => {
-  closePhoto(); notify('사진을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
-});
 photos.forEach((photo, index) => {
-  const button = document.createElement('button');
-  button.type = 'button'; button.className = 'photo-tile';
-  button.setAttribute('aria-label', `${photo.alt || `사진 ${index + 1}`} 크게 보기`);
+  const tile = document.createElement('div'); tile.className = 'photo-tile';
   const img = document.createElement('img');
   img.src = photo.src; img.alt = photo.alt || `영선과 은지의 사진 ${index + 1}`;
   img.loading = 'lazy'; img.decoding = 'async';
-  img.addEventListener('error', () => { button.remove(); if (!grid.children.length) gallery.hidden = true; });
-  button.append(img); grid.append(button);
-  button.addEventListener('click', () => {
-    photoTrigger = button; displayPhoto(index);
-    viewer.showModal(); document.body.classList.add('viewer-open');
-  });
+  img.addEventListener('error', () => tile.replaceWith(photoPlaceholder(index)));
+  tile.append(img); grid.append(tile);
 });
-if (photos.length) {
-  gallery.hidden = false;
-  document.querySelector('.photo-controls').hidden = photos.length < 2;
-}
+for (let index = photos.length; index < 3; index++) grid.append(photoPlaceholder(index));
+gallery.hidden = false;
+document.getElementById('gallery-caption').textContent = photos.length < 3 ? '우리의 사진을 이곳에 차곡차곡 담을게요.' : '함께한 순간, 오래도록.';
 const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
-if (!photos.length) {
-  gallery.hidden = false;
-  for (let i = 1; i <= 3; i++) {
-    const slot = document.createElement('div'); slot.className = 'photo-placeholder';
-    const number = document.createElement('span'); number.textContent = `0${i}`;
-    slot.append(number, document.createTextNode(i === 1 ? '대표 사진' : '함께한 순간'));
-    grid.append(slot);
-  }
-  document.getElementById('gallery-caption').textContent = '우리의 사진을 곧 이곳에 담을게요.';
-}
 const audio = document.getElementById('background-music');
 const musicButton = document.getElementById('music-toggle');
 const music = media.music || {};
