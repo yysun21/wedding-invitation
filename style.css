@@ -93,3 +93,13 @@ h1{font-weight:400;line-height:1.5;letter-spacing:-.055em}.opening-title{font-we
 
 /* Selected type pairing also carries through to the opening. */
 [data-typography=literary] .opening-title{font-family:'Noto Serif KR',serif;font-weight:300;font-size:27px;line-height:1.9;letter-spacing:-.025em}
+
+/* One selected photo with a horizontally scrollable thumbnail rail. */
+#photo-grid{display:block}.gallery-featured{width:100%;aspect-ratio:3/4;background:#f6f6f5;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;text-align:center;overflow:hidden}.gallery-featured>img{width:100%;height:100%;object-fit:contain;display:block}.gallery-thumbnails{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:12px 1px 8px;scrollbar-width:thin;scrollbar-color:#b9b9b5 transparent}.gallery-thumbnail,.gallery-thumbnail-placeholder{flex:0 0 72px;height:90px;scroll-snap-align:start}.gallery-thumbnail{padding:3px;border:1px solid transparent;background:transparent;cursor:pointer}.gallery-thumbnail[aria-pressed=true]{border-color:#555}.gallery-thumbnail>img{width:100%;height:100%;object-fit:cover;display:block}.gallery-thumbnail-placeholder{display:flex;align-items:center;justify-content:center;background:#f6f6f5;font-size:9px;color:#999}.gallery-caption{margin-top:10px;font-variant-numeric:tabular-nums;letter-spacing:.08em}.photo-error{padding:24px;line-height:1.8}
+
+/* White studio space, quiet typography, foreground and background ribbons. */
+.opening-light{background:radial-gradient(ellipse at 38% 34%,#fff 0%,#fff 34%,#f3f4f5 72%,#e5e8eb 100%)}
+.opening-center{top:48%;left:32px;right:32px}.opening-kicker{font-size:8px;letter-spacing:.22em;color:#8b8c90;margin-bottom:24px}
+[data-typography=literary] .opening-title{font-size:29px;font-weight:300;line-height:1.7;letter-spacing:-.055em}.opening-description{font-size:10px;letter-spacing:-.02em;color:#929397;margin-top:20px}
+.opening-trigger{border:0;border-bottom:1px solid #b9bbc0;border-radius:0;background:transparent;min-width:0;padding:10px 0;gap:32px;margin-top:32px;font-size:10px}.opening-trigger:hover{background:transparent;border-color:#333}.opening-heading{color:#919398;font-size:7px;letter-spacing:.13em}.opening-signature{color:#878a8e;font-size:9px}
+.is-opening .opening-center{transform:translateY(-50%) scale(.97)}

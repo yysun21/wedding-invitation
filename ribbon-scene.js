@@ -16,10 +16,10 @@ try {
   renderer.domElement.setAttribute('aria-hidden','true');
   opening.prepend(renderer.domElement);
   const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(-1.6,1.6,3,-3,.1,30);
+  const camera = new THREE.PerspectiveCamera(35,1,.03,50);
   camera.position.set(0,0,10);
   const studio = new THREE.Scene();
-  studio.background = new THREE.Color('#555555');
+  studio.background = new THREE.Color('#777777');
   for (const [x,y,z,w,h,intensity] of [[-4,2,3,3,7,7],[4,0,2,2,8,5],[0,5,-1,6,2,4]]) {
     const panel = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshBasicMaterial({color:new THREE.Color().setScalar(intensity),side:THREE.DoubleSide}));
     panel.position.set(x,y,z); panel.lookAt(0,0,0); studio.add(panel);
@@ -29,15 +29,14 @@ try {
   scene.environment = environment.texture;
   pmrem.dispose();
   studio.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose();}});
-  scene.add(new THREE.HemisphereLight(0xffffff,0x99938c,2));
-  const key = new THREE.DirectionalLight(0xffffff,3.5);
-  key.position.set(-2,3,10);key.castShadow=true;
+  scene.add(new THREE.HemisphereLight(0xffffff,0xd9dce2,1.8));
+  const key = new THREE.DirectionalLight(0xffffff,2.4);
+  key.position.set(-2,3,10);key.castShadow=false;
   key.shadow.mapSize.set(1024,1024);
   Object.assign(key.shadow.camera,{left:-5,right:5,top:7,bottom:-7});
   key.shadow.bias=-.002;key.shadow.radius=5;scene.add(key);
   const fill = new THREE.DirectionalLight(0xe0e5ff,1.6);fill.position.set(4,-2,3);scene.add(fill);
-  const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(30,30),new THREE.ShadowMaterial({opacity:.055}));
-  backdrop.position.z=-1.4;backdrop.receiveShadow=true;scene.add(backdrop);
+
 
   const label = document.createElement('canvas');
   const ctx=label.getContext('2d');
@@ -52,7 +51,7 @@ try {
   ctx.fillText(phrase,0,65);
   const texture=new THREE.CanvasTexture(label);texture.colorSpace=THREE.SRGBColorSpace;
   texture.wrapS=THREE.RepeatWrapping;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
-  const material=new THREE.MeshPhysicalMaterial({map:texture,roughness:.34,metalness:.32,clearcoat:.38,clearcoatRoughness:.36,side:THREE.DoubleSide,envMapIntensity:.7});
+  const material=new THREE.MeshPhysicalMaterial({map:texture,roughness:.56,metalness:.08,clearcoat:.12,clearcoatRoughness:.36,side:THREE.DoubleSide,envMapIntensity:.7});
   // Both bands share one scrolling coordinate: band two begins where band one ends.
   const textSpan=Math.round(2*.9*2048/label.width)/2;
   // Balanced, wide heart built from mirrored Bezier arcs.
@@ -87,9 +86,9 @@ try {
     mesh.material.customProgramCacheKey=()=> 'heart-pink-v1';
     mesh.material.map=texture.clone();mesh.material.map.needsUpdate=true;mesh.castShadow=true;mesh.receiveShadow=true;mesh.frustumCulled=false;scene.add(mesh);strips.push(mesh);
   }
-  let halfHeight=3,frame=0,last=0,elapsed=0,exitAt=null,pointerX=0,pointerY=0;
+  let halfHeight=3,frame=0,last=0,elapsed=0,exitAt=null,pointerX=0,pointerY=0,viewX=0,viewY=0;
   const tangent=new THREE.Vector3(),side=new THREE.Vector3(),normal=new THREE.Vector3(),point=new THREE.Vector3();
-  function resize(){const {width,height}=opening.getBoundingClientRect();if(!width||!height)return;halfHeight=1.6*height/width;camera.top=halfHeight;camera.bottom=-halfHeight;camera.updateProjectionMatrix();renderer.setSize(width,height);}
+  function resize(){const {width,height}=opening.getBoundingClientRect();if(!width||!height)return;halfHeight=1.6*height/width;camera.aspect=width/height;camera.fov=THREE.MathUtils.radToDeg(2*Math.atan(halfHeight/10));camera.updateProjectionMatrix();renderer.setSize(width,height);}
   function draw(time){
     const dt=last?Math.min((time-last)/1000,.05):0;last=time;elapsed+=dt;
     const exiting=opening.classList.contains('is-opening');
@@ -101,7 +100,9 @@ try {
     const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};
     const gather=shaped?smooth(progress/(mode==='heart-out'?.48:.4)):0;
     const travel=shaped?(mode==='heart-out'?Math.max(0,Math.min(1,(progress-.43)/.55)):smooth((progress-.57)/.43)):0;
-    const passageScale=1/(1-travel*.985);
+    const dolly = smooth(travel);
+    const cameraZ = 10 - dolly * 9.72;
+    const passageScale=9.8/Math.max(.08,cameraZ-.2);
     const aperture=mode==='heart-out'&&!inspecting?passageScale*.4*opening.clientWidth/3.2*smooth((progress-.48)/.15):0;
     opening.style.setProperty('--passage-radius',`${aperture}px`);
     // A brief pull-back, then a fast release instead of a uniform slide.
@@ -109,7 +110,11 @@ try {
     const release=Math.max(0,Math.min(1,(progress-.24)/.62));
     const escape=release*release*release;
     const pull=exiting&&progress<.24?Math.sin(progress/.24*Math.PI)*.13:0;
-    camera.zoom=1+(exiting?Math.sin(progress*Math.PI)*.055:0);
+    viewX+=(pointerX-viewX)*.045; viewY+=(pointerY-viewY)*.045;
+    const parallax=reduce.matches?0:1-gather;
+    camera.position.set(viewX*.22*parallax, -viewY*.14*parallax,mode==='heart-out'?cameraZ:10);
+    camera.lookAt(0,0,.2);
+    camera.zoom=1;
     camera.updateProjectionMatrix();
     const t=reduce.matches?0:elapsed*.33;
     strips.forEach((mesh,n)=>{
@@ -117,15 +122,16 @@ try {
       const phase=t*direction+n*1.5;
       const H=halfHeight;
       // The two visible bands are consecutive sections of the same lettering stream.
-      const band=H*(n===0?.66:-.58);
+      const band=H*(n===0?.67:-.58);
+      const depth=n===0?-1.1:1.25;
       const curve=new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-2.6,band+.12,.1),
-        new THREE.Vector3(-1.7,band-.08,.5),
-        new THREE.Vector3(-.85,band+.17,.18),
-        new THREE.Vector3(0,band+.03,.65),
-        new THREE.Vector3(.85,band-.17,.3),
-        new THREE.Vector3(1.7,band+.08,.1),
-        new THREE.Vector3(2.6,band+.22,.5)
+        new THREE.Vector3(-3.4,band+.48,depth+.5),
+        new THREE.Vector3(-1.8,band+.12,depth-.3),
+        new THREE.Vector3(-.85,band-.18,depth-.6),
+        new THREE.Vector3(0,band-.02,depth),
+        new THREE.Vector3(.85,band+.23,depth+.5),
+        new THREE.Vector3(1.8,band+.05,depth+.9),
+        new THREE.Vector3(3.4,band-.45,depth+.2)
       ]);
       let target;
       if(mode==='orbit'){
@@ -152,11 +158,11 @@ try {
         point.y=band+(point.y-band)*(1-tension*.78);
         if(shaped){target.getPoint(u,targetPoint);target.getTangent(u,targetTangent);point.lerp(targetPoint,gather);tangent.lerp(targetTangent,gather).normalize();}
         side.set(-tangent.y,tangent.x,0).normalize();normal.crossVectors(tangent,side).normalize();
-        const twist=(1-gather)*((Math.sin(u*9-phase)*.6+Math.sin(u*16-phase*.5)*.18)*(1-tension*.85)+(shaped?0:escape*.9));
+        const twist=(1-gather)*((Math.sin(u*7-phase)*.28+Math.sin(u*12-phase*.5)*.08)*(1-tension*.85)+(shaped?0:escape*.9));
         side.multiplyScalar(Math.cos(twist)).addScaledVector(normal,Math.sin(twist));
         const drift=Math.sin(u*8-phase)*.055*(1-gather);
         for(let j=0;j<=across;j++){
-          const v=j/across-.5;const width=(.39+Math.sin(u*6+n)*.04)*(1-gather)+.22*gather;
+          const v=j/across-.5;const width=((n===0?.25:.36)+Math.sin(u*6+n)*.025)*(1-gather)+.22*gather;
           const k=i*(across+1)+j;
           attr.setXYZ(k,point.x+side.x*v*width,point.y+side.y*v*width+drift,point.z+side.z*v*width+.035*Math.cos(v*Math.PI*2));
         }
@@ -166,14 +172,14 @@ try {
       mesh.material.opacity=1;mesh.material.transparent=true;
       const pink=(mode==='heart-in'||mode==='heart-out')?smooth((gather-.15)/.85):0;
       mesh.userData.pinkMix.value=pink;
-      mesh.material.metalness=.32-pink*.22;
-      mesh.material.roughness=.34+pink*.12;
+      mesh.material.metalness=.08-pink*.04;
+      mesh.material.roughness=.56+pink*.06;
       mesh.position.z=0;
       mesh.position.x=shaped?0:direction*(escape*7-pull)+pointerX*.035;mesh.position.y=shaped?0:-direction*escape*.9+pointerY*.025;
       if(shaped){
-        const scale=mode==='heart-in'?1-travel*.96:mode==='heart-out'?passageScale:1+travel*6;
+        const scale=mode==='heart-in'?1-travel*.96:mode==='heart-out'?1:1+travel*6;
         mesh.scale.setScalar(scale);
-        mesh.position.z=mode==='heart-in'?-travel*2:travel*1.2;
+        mesh.position.z=mode==='heart-in'?-travel*2:0;
         mesh.material.opacity=mode==='heart-out'?1:1-smooth((travel-.7)/.3);
       }
       mesh.rotation.z=shaped?(mode==='orbit'?travel*Math.PI*.65:0):-escape*.16;

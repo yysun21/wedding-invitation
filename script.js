@@ -95,23 +95,50 @@ const media = window.INVITATION_MEDIA || {};
 const gallery = document.getElementById('gallery');
 const grid = document.getElementById('photo-grid');
 const photos = Array.isArray(media.photos) ? media.photos.filter(p => p && typeof p.src === 'string' && p.src.trim()) : [];
-function photoPlaceholder(index) {
-  const slot = document.createElement('div'); slot.className = 'photo-placeholder';
-  const number = document.createElement('span'); number.textContent = String(index + 1).padStart(2, '0');
-  slot.append(number, document.createTextNode(index === 0 ? '대표 사진' : '사진 준비 중'));
-  return slot;
+const featured = document.createElement('div'); featured.className = 'gallery-featured';
+const featuredImage = document.createElement('img'); featuredImage.decoding = 'async';
+const strip = document.createElement('div'); strip.className = 'gallery-thumbnails'; strip.setAttribute('role', 'group'); strip.setAttribute('aria-label', '사진 선택');
+const caption = document.getElementById('gallery-caption'); caption.setAttribute('aria-live', 'polite');
+const thumbnails = [];
+function selectPhoto(index) {
+  const photo = photos[index];
+  featuredImage.src = photo.src;
+  featuredImage.alt = photo.alt || `영선과 은지의 사진 ${index + 1}`;
+  featuredImage.hidden = false;
+  featured.querySelector('.photo-error')?.remove();
+  thumbnails.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+  caption.textContent = `${String(index + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
 }
-photos.forEach((photo, index) => {
-  const tile = document.createElement('div'); tile.className = 'photo-tile';
-  const img = document.createElement('img');
-  img.src = photo.src; img.alt = photo.alt || `영선과 은지의 사진 ${index + 1}`;
-  img.loading = 'lazy'; img.decoding = 'async';
-  img.addEventListener('error', () => tile.replaceWith(photoPlaceholder(index)));
-  tile.append(img); grid.append(tile);
+featuredImage.addEventListener('error', () => {
+  featuredImage.hidden = true;
+  if (!featured.querySelector('.photo-error')) {
+    const message = document.createElement('p'); message.className = 'photo-error';
+    message.textContent = '사진을 불러오지 못했어요. 다른 사진을 선택해 주세요.';
+    featured.append(message);
+  }
 });
-for (let index = photos.length; index < 3; index++) grid.append(photoPlaceholder(index));
+featured.append(featuredImage); grid.append(featured, strip);
+photos.forEach((photo, index) => {
+  const button = document.createElement('button'); button.type = 'button'; button.className = 'gallery-thumbnail';
+  button.setAttribute('aria-label', `사진 ${index + 1} 선택`);
+  const img = document.createElement('img'); img.src = photo.src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+  button.append(img); strip.append(button); thumbnails.push(button);
+  button.addEventListener('click', () => selectPhoto(index));
+  button.addEventListener('keydown', event => {
+    let next;
+    if (event.key === 'ArrowRight') next = (index + 1) % photos.length;
+    if (event.key === 'ArrowLeft') next = (index - 1 + photos.length) % photos.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = photos.length - 1;
+    if (next !== undefined) { event.preventDefault(); selectPhoto(next); thumbnails[next].focus({preventScroll:true}); thumbnails[next].scrollIntoView({block:'nearest', inline:'nearest'}); }
+  });
+});
+for (let index = photos.length; index < 3; index++) {
+  const slot = document.createElement('div'); slot.className = 'gallery-thumbnail-placeholder'; slot.textContent = '사진 준비 중'; strip.append(slot);
+}
+if (photos.length) selectPhoto(0);
+else { featuredImage.hidden = true; featured.textContent = '우리의 사진을 곧 이곳에 담을게요.'; caption.textContent = ''; }
 gallery.hidden = false;
-document.getElementById('gallery-caption').textContent = photos.length < 3 ? '우리의 사진을 이곳에 차곡차곡 담을게요.' : '함께한 순간, 오래도록.';
 const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
 const audio = document.getElementById('background-music');
 const musicButton = document.getElementById('music-toggle');
