@@ -122,17 +122,15 @@ try {
       const phase=t*direction+n*1.5;
       const H=halfHeight;
       // The two visible bands are consecutive sections of the same lettering stream.
-      const band=H*(n===0?.67:-.58);
-      const depth=n===0?-1.1:1.25;
-      const curve=new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-3.4,band+.48,depth+.5),
-        new THREE.Vector3(-1.8,band+.12,depth-.3),
-        new THREE.Vector3(-.85,band-.18,depth-.6),
-        new THREE.Vector3(0,band-.02,depth),
-        new THREE.Vector3(.85,band+.23,depth+.5),
-        new THREE.Vector3(1.8,band+.05,depth+.9),
-        new THREE.Vector3(3.4,band-.45,depth+.2)
-      ]);
+      // A full spatial loop, not a wave: its rear arc turns edge-on behind the front arc.
+      const band=H*(n===0?.52:-.54);
+      const driftPhase=Math.sin(t*.38+n)*.09;
+      const nodes=[[-3.8,-.42,1.8],[-1.2,-.55,1.8],[.8,-.32,1.25],
+        [1.6,.28,-.15],[.7,.92,-1.7],[-.85,.78,-2],
+        [-1.65,.12,-.5],[-.8,-.72,1.1],[3.8,-.8,1.7]];
+      const curve=new THREE.CatmullRomCurve3(nodes.map(([x,y,z])=>new THREE.Vector3(
+        x*direction, band+y*direction+driftPhase, z
+      )),false,'centripetal');
       let target;
       if(mode==='orbit'){
         target=new THREE.Curve();
@@ -154,22 +152,22 @@ try {
       const targetPoint=new THREE.Vector3(),targetTangent=new THREE.Vector3();
       const attr=mesh.geometry.attributes.position;
       for(let i=0;i<=segments;i++){
-        const u=i/segments;curve.getPoint(u,point);curve.getTangent(u,tangent);
-        point.y=band+(point.y-band)*(1-tension*.78);
+        const u=i/segments;curve.getPointAt(u,point);curve.getTangentAt(u,tangent);
+        point.y=band+(point.y-band)*(1-tension*.22);
         if(shaped){target.getPoint(u,targetPoint);target.getTangent(u,targetTangent);point.lerp(targetPoint,gather);tangent.lerp(targetTangent,gather).normalize();}
         side.set(-tangent.y,tangent.x,0).normalize();normal.crossVectors(tangent,side).normalize();
-        const twist=(1-gather)*((Math.sin(u*7-phase)*.28+Math.sin(u*12-phase*.5)*.08)*(1-tension*.85)+(shaped?0:escape*.9));
+        const twist=(1-gather)*((Math.sin(u*Math.PI*2-phase*.15)*1.25)*(1-tension*.85)+(shaped?0:escape*.9));
         side.multiplyScalar(Math.cos(twist)).addScaledVector(normal,Math.sin(twist));
         const drift=Math.sin(u*8-phase)*.055*(1-gather);
         for(let j=0;j<=across;j++){
-          const v=j/across-.5;const width=((n===0?.25:.36)+Math.sin(u*6+n)*.025)*(1-gather)+.22*gather;
+          const v=j/across-.5;const width=((n===0?.34:.4)+Math.sin(u*6+n)*.035)*(1-gather)+.22*gather;
           const k=i*(across+1)+j;
           attr.setXYZ(k,point.x+side.x*v*width,point.y+side.y*v*width+drift,point.z+side.z*v*width+.035*Math.cos(v*Math.PI*2));
         }
       }
       attr.needsUpdate=true;mesh.geometry.computeVertexNormals();
       mesh.scale.setScalar(1);
-      mesh.material.opacity=1;mesh.material.transparent=true;
+      mesh.material.opacity=1;mesh.material.transparent=false;
       const pink=(mode==='heart-in'||mode==='heart-out')?smooth((gather-.15)/.85):0;
       mesh.userData.pinkMix.value=pink;
       mesh.material.metalness=.08-pink*.04;
@@ -181,6 +179,7 @@ try {
         mesh.scale.setScalar(scale);
         mesh.position.z=mode==='heart-in'?-travel*2:0;
         mesh.material.opacity=mode==='heart-out'?1:1-smooth((travel-.7)/.3);
+        mesh.material.transparent=mesh.material.opacity<1;
       }
       mesh.rotation.z=shaped?(mode==='orbit'?travel*Math.PI*.65:0):-escape*.16;
       mesh.material.map.offset.x=reduce.matches?0:-elapsed*.035;

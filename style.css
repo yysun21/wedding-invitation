@@ -103,3 +103,8 @@ h1{font-weight:400;line-height:1.5;letter-spacing:-.055em}.opening-title{font-we
 [data-typography=literary] .opening-title{font-size:29px;font-weight:300;line-height:1.7;letter-spacing:-.055em}.opening-description{font-size:10px;letter-spacing:-.02em;color:#929397;margin-top:20px}
 .opening-trigger{border:0;border-bottom:1px solid #b9bbc0;border-radius:0;background:transparent;min-width:0;padding:10px 0;gap:32px;margin-top:32px;font-size:10px}.opening-trigger:hover{background:transparent;border-color:#333}.opening-heading{color:#919398;font-size:7px;letter-spacing:.13em}.opening-signature{color:#878a8e;font-size:9px}
 .is-opening .opening-center{transform:translateY(-50%) scale(.97)}
+
+/* Shared light field links the invitation interior to the opening space. */
+.opening-light{background:radial-gradient(ellipse at 50% 48%,#fff 0%,#fffefb 14%,#f2efe8 34%,#dedbd5 64%,#b7b5b0 100%)}
+.welcome{background:radial-gradient(ellipse at 50% 28%,#fffefb 0%,#f4f1eb 46%,#e3e0da 100%)}
+.opening-heading,.opening-signature{color:#66635e}.opening-description{color:#77736c}.opening-center{top:48%}
