@@ -10,28 +10,14 @@
   <title>윤영선 · 이은지 | 2027.02.27</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23faf8f2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-size='37' fill='%2388795c'%3E%26%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css?v=20261010-bouquet">
-  <script src="media-config.js?v=20261010-gallery12" defer></script>
-  <script src="script.js?v=20261003-calm1" defer></script>
-  <script type="module" src="ribbon-scene.js?v=20261003-calm1"></script>
+  <script src="media-config.js?v=20261010-gallery12"></script>
+<style>#invitation-opening{position:fixed;inset:0;z-index:2;overflow:hidden;background:radial-gradient(ellipse at 58% 42%,#fff 0,#f4f2ec 55%,#ddd9cf 100%);transition:opacity .85s ease}#invitation-opening canvas{position:absolute;inset:0;width:100%;height:100%}#invitation-opening .meta{position:absolute;top:max(30px,env(safe-area-inset-top));left:26px;right:26px;display:flex;justify-content:space-between;font:9px Arial;letter-spacing:.15em;color:#7e786c}#invitation-opening .copy{position:absolute;top:43%;left:0;width:100%;text-align:center;transition:opacity .5s,transform .8s}#invitation-opening .copy small{font:9px Arial;letter-spacing:.26em;color:#8c8578}#invitation-opening .copy h1{font-size:clamp(27px,6vw,39px);font-weight:300;letter-spacing:-.055em;margin:20px 0}#invitation-opening .copy p{font-size:11px;color:#8a8277;letter-spacing:.04em}#open-invitation{position:absolute;bottom:15%;left:50%;transform:translateX(-50%);border:0;border-bottom:1px solid #a8a192;background:transparent;padding:13px 4px;width:144px;display:flex;justify-content:space-between;font-size:12px;letter-spacing:.1em;transition:opacity .4s}#invitation-opening #hint{position:absolute;bottom:5%;width:100%;text-align:center;font:9px Arial;letter-spacing:.18em;color:#969084}.departing #invitation-opening .copy{opacity:0;transform:translateY(-12px)}.departing #open-invitation,.departing #invitation-opening .meta,.departing #invitation-opening #hint{opacity:0}#invitation-opening .fallback-ribbon{position:absolute;top:21%;left:-15%;width:130%;height:42px;background:linear-gradient(#fffcf4,#d5cbbb);box-shadow:0 35px 40px #77695622;transform:rotate(14deg)}#invitation-opening .fallback-ribbon.second{top:72%;transform:rotate(-17deg)}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+#invitation-opening{font-family:"Noto Serif KR",serif;color:#3e3b36;max-width:none;transform:none!important;clip-path:none!important}#invitation-opening[hidden]{display:none!important}#invitation-opening .copy h1{font-family:inherit;font-weight:300}#open-invitation{font-family:inherit;color:inherit}#invitation-opening.departing .copy{opacity:0;transform:translateY(-12px)}#invitation-opening.departing .meta,#invitation-opening.departing #hint{opacity:0}
+</style>
 </head>
 <body data-typography="literary">
-  <div class="invitation-opening" id="invitation-opening" data-motion="heart-out" hidden>
-    <div class="opening-heading" aria-hidden="true"><span>A PERSONAL INVITATION</span><span>27 FEB 2027</span></div>
-    <div class="opening-light" aria-hidden="true"><img class="opening-photo" src="media/gallery-11.jpg" alt="" fetchpriority="high"></div>
-    <div class="ribbon-wrap ribbon-one" aria-hidden="true">
-      <svg viewBox="0 0 400 600" fill="none"><defs><linearGradient id="ribbon-ink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070707"/><stop offset=".48" stop-color="#303030"/><stop offset=".65" stop-color="#0c0c0c"/><stop offset="1" stop-color="#242424"/></linearGradient><path id="ribbon-line" d="M340 -65 C360 155 95 130 92 345 S280 475 250 680"/></defs><use href="#ribbon-line" stroke="url(#ribbon-ink)" stroke-width="38"/><text fill="#f8f8f8" font-family="Arial,sans-serif" font-size="10" letter-spacing="4"><textPath href="#ribbon-line" startOffset="17%">WITH LOVE · WITH LOVE · WITH LOVE</textPath></text></svg>
-    </div>
-    <div class="ribbon-wrap ribbon-two" aria-hidden="true">
-      <svg viewBox="0 0 400 600" fill="none"><path id="ribbon-line-two" d="M90 -70 C-80 160 360 100 262 340 S40 425 135 690" stroke="#111" stroke-width="44"/><text fill="#f8f8f8" font-family="Arial,sans-serif" font-size="10" letter-spacing="4"><textPath href="#ribbon-line-two" startOffset="20%">OUR NEXT CHAPTER · 27 FEBRUARY 2027</textPath></text></svg>
-    </div>
-    <div class="opening-center">
-      <p class="opening-kicker">YOU ARE INVITED</p>
-      <p class="opening-title">함께 맞는, 봄.</p>
-      <p class="opening-description">우리의 시작에 당신을 초대합니다.</p>
-      <button id="open-invitation" class="opening-trigger" type="button" aria-label="윤영선과 이은지의 초대장 열기"><span>초대장 열기</span><span aria-hidden="true">↗</span></button>
-    </div>
-    <p class="opening-signature">영선과 은지의 결혼식 <span>2027. 02. 27</span></p>
-  </div>
+<section id="invitation-opening" hidden aria-label="초대장 첫 화면"><div class="fallback-ribbon" aria-hidden="true"></div><div class="fallback-ribbon second" aria-hidden="true"></div><div class="meta"><span>A PERSONAL INVITATION</span><span>27 FEB 2027</span></div><div class="copy"><small>THE BEGINNING OF US</small><h1>함께 맞는, 봄.</h1><p>우리의 시작에 당신을 초대합니다.</p></div><button id="open-invitation">초대장 열기 <span>↗</span></button><div id="hint">YOUNGSUN · EUNJI</div></section>
   <main>
     <header class="welcome" id="top">
       <nav class="topline" aria-label="청첩장 메뉴"><span>OUR WEDDING DAY</span><button id="reopen-invitation" type="button">처음으로 <span aria-hidden="true">↺</span></button></nav>
@@ -74,5 +60,249 @@
   </main>
   <audio id="background-music" loop preload="none"></audio>
   <div id="notice" role="status" aria-live="polite"></div>
+<script>
+ 'use strict';
+
+const opening = document.getElementById('invitation-opening');
+const openButton = document.getElementById('open-invitation');
+const invitationMain = document.querySelector('main');
+let openingStarted = false;
+let openingTimer;
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+function showInvitation() {
+  clearTimeout(openingTimer);
+  openingStarted = false;
+  opening.classList.remove('is-opening', 'departing');
+  opening.style.opacity='1';
+  delete opening.dataset.inspect;
+  openButton.removeAttribute('aria-disabled');
+  opening.hidden = false;
+  document.body.classList.remove('opening-reveal');
+  document.body.classList.add('opening-active');
+  invitationMain.inert = true;
+  window.scrollTo({top:0, behavior:'instant'});
+}
+function finishOpening() {
+  opening.hidden = true;
+  document.body.classList.remove('opening-active', 'opening-reveal');
+  invitationMain.inert = false;
+  document.getElementById('invitation').scrollIntoView({behavior:'instant'});
+  const title = document.querySelector('#invitation h2');
+  title.setAttribute('tabindex','-1');
+  title.focus({preventScroll:true});
+}
+if (!location.hash) showInvitation();
+openButton.addEventListener('click', () => {
+  if (openingStarted) return;
+  delete opening.dataset.inspect;
+  openingStarted = true;
+  if (!musicPausedByGuest) playMusic();
+  openButton.setAttribute('aria-disabled', 'true');
+  opening.classList.add('is-opening', 'departing');
+  document.body.classList.add('opening-reveal');
+  if (reducedMotion.matches) finishOpening();
+  else openingTimer = setTimeout(finishOpening, 2300);
+});
+document.getElementById('reopen-invitation').addEventListener('click', () => {
+  showInvitation();
+  openButton.focus({preventScroll:true});
+});
+
+// 확정된 예식 시각을 입력하면 모든 화면에 함께 반영됩니다. 예: '오후 1시'
+const ceremonyTime = '오후 5시 30분';
+if (ceremonyTime) document.querySelectorAll('.ceremony-time').forEach(el => { el.textContent = ' ' + ceremonyTime; });
+const calendarBody = document.getElementById('calendar-body');
+for (let week = 0; week < 5; week++) {
+  const row = document.createElement('div'); row.className = 'calendar-row'; row.setAttribute('role', 'row');
+  for (let day = 0; day < 7; day++) {
+    const date = week * 7 + day;
+    const cell = document.createElement('span'); cell.setAttribute('role', 'cell');
+    if (date >= 1 && date <= 28) cell.textContent = date;
+    if (date === 27) { cell.className = 'wedding-day'; cell.setAttribute('aria-label', '27일, 결혼식'); }
+    row.append(cell);
+  }
+  calendarBody.append(row);
+}
+function updateCountdown() {
+  const parts = new Intl.DateTimeFormat('en-CA', {timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const p = Object.fromEntries(parts.map(x => [x.type, x.value]));
+  const remaining = Math.round((Date.UTC(2027,1,27)-Date.UTC(Number(p.year),Number(p.month)-1,Number(p.day)))/86400000);
+  const count = document.getElementById('countdown');
+  if (remaining > 0) count.innerHTML = `영선과 은지의 결혼식까지 <strong>${remaining}일</strong> 남았습니다.`;
+  else count.textContent = remaining === 0 ? '오늘, 저희 결혼합니다.' : '함께 축복해 주셔서 감사합니다.';
+}
+updateCountdown(); setInterval(updateCountdown, 60000);
+let noticeTimer;
+function notify(text) { const el = document.getElementById('notice'); el.textContent = text; el.classList.add('visible'); clearTimeout(noticeTimer); noticeTimer = setTimeout(() => el.classList.remove('visible'), 3000); }
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch { window.prompt('아래 내용을 복사해 주세요.', text); return false; }
+}
+document.getElementById('copy-address').addEventListener('click', async () => { if (await copy('서울특별시 중구 장충단로 72')) notify('주소를 복사했습니다.'); });
+document.getElementById('share').addEventListener('click', async () => {
+  const url = new URL('./', location.href).href;
+  if (navigator.share) {
+    try { await navigator.share({ title:'윤영선 · 이은지 결혼합니다', text:'2027년 2월 27일 오후 5시 30분 · 크레스트72 글라스 홀', url }); return; }
+    catch (error) { if (error.name === 'AbortError') return; }
+  }
+  if (await copy(url)) notify('청첩장 링크를 복사했습니다.');
+});
+
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if(entry.isIntersecting) {entry.target.classList.add('revealed');observer.unobserve(entry.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.section > h2, .invitation-copy, .families, .date-display, .calendar, .directions, .closing').forEach(el => {el.classList.add('reveal-ready');observer.observe(el);});
+}
+
+// Optional photographs and music. Empty settings never produce broken media.
+const media = window.INVITATION_MEDIA || {};
+const gallery = document.getElementById('gallery');
+const grid = document.getElementById('photo-grid');
+const photos = Array.isArray(media.photos) ? media.photos.filter(p => p && typeof p.src === 'string' && p.src.trim()) : [];
+const featured = document.createElement('div'); featured.className = 'gallery-featured';
+const featuredImage = document.createElement('img'); featuredImage.decoding = 'async';
+const strip = document.createElement('div'); strip.className = 'gallery-thumbnails'; strip.setAttribute('role', 'group'); strip.setAttribute('aria-label', '사진 선택');
+const caption = document.getElementById('gallery-caption'); caption.setAttribute('aria-live', 'polite');
+const thumbnails = [];
+function selectPhoto(index) {
+  const photo = photos[index];
+  featuredImage.src = photo.src;
+  featuredImage.alt = photo.alt || `영선과 은지의 사진 ${index + 1}`;
+  featuredImage.hidden = false;
+  featured.querySelector('.photo-error')?.remove();
+  thumbnails.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+  caption.textContent = `${String(index + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
+}
+featuredImage.addEventListener('error', () => {
+  featuredImage.hidden = true;
+  if (!featured.querySelector('.photo-error')) {
+    const message = document.createElement('p'); message.className = 'photo-error';
+    message.textContent = '사진을 불러오지 못했어요. 다른 사진을 선택해 주세요.';
+    featured.append(message);
+  }
+});
+featured.append(featuredImage); grid.append(featured, strip);
+photos.forEach((photo, index) => {
+  const button = document.createElement('button'); button.type = 'button'; button.className = 'gallery-thumbnail';
+  button.setAttribute('aria-label', `사진 ${index + 1} 선택`);
+  const img = document.createElement('img'); img.src = photo.src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+  button.append(img); strip.append(button); thumbnails.push(button);
+  button.addEventListener('click', () => selectPhoto(index));
+  button.addEventListener('keydown', event => {
+    let next;
+    if (event.key === 'ArrowRight') next = (index + 1) % photos.length;
+    if (event.key === 'ArrowLeft') next = (index - 1 + photos.length) % photos.length;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = photos.length - 1;
+    if (next !== undefined) { event.preventDefault(); selectPhoto(next); thumbnails[next].focus({preventScroll:true}); thumbnails[next].scrollIntoView({block:'nearest', inline:'nearest'}); }
+  });
+});
+for (let index = photos.length; index < 3; index++) {
+  const slot = document.createElement('div'); slot.className = 'gallery-thumbnail-placeholder'; slot.textContent = '사진 준비 중'; strip.append(slot);
+}
+if (photos.length) selectPhoto(0);
+else { featuredImage.hidden = true; featured.textContent = '우리의 사진을 곧 이곳에 담을게요.'; caption.textContent = ''; }
+gallery.hidden = false;
+const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
+const audio = document.getElementById('background-music');
+const musicButton = document.getElementById('music-toggle');
+const music = media.music || {};
+let musicPausedByGuest = false;
+let musicUnavailable = false;
+function updateMusicButton() {
+  const playing = !audio.paused;
+  musicButton.setAttribute('aria-pressed', String(playing));
+  musicButton.setAttribute('aria-label', playing ? '배경음악 일시정지' : '배경음악 재생');
+}
+async function playMusic() {
+  if (!music.src || musicUnavailable) return;
+  try { await audio.play(); }
+  catch { updateMusicButton(); }
+}
+if (typeof music.src === 'string' && music.src.trim()) {
+  audio.src = music.src;
+  audio.volume = Number.isFinite(music.volume) ? Math.min(1, Math.max(0, music.volume)) : 0.25;
+  musicButton.hidden = false;
+  musicButton.title = music.title || '배경음악';
+  document.querySelector('.quick-nav').classList.add('has-music');
+}
+audio.addEventListener('play', updateMusicButton);
+audio.addEventListener('pause', updateMusicButton);
+audio.addEventListener('error', () => {
+  musicUnavailable = true;
+  musicButton.hidden = true;
+  document.querySelector('.quick-nav').classList.remove('has-music');
+  notify('배경음악을 불러오지 못했습니다.');
+});
+musicButton.addEventListener('click', () => {
+  if (!music.src) { notify('배경음악 파일을 아직 등록하지 않았습니다.'); return; }
+  if (audio.paused) { musicPausedByGuest = false; playMusic(); }
+  else { musicPausedByGuest = true; audio.pause(); }
+});
+document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); });
+if (previewMedia && !music.src) {
+  musicButton.hidden = false;
+  musicButton.setAttribute('aria-label', '배경음악 준비 중');
+  musicButton.setAttribute('aria-disabled', 'true');
+  document.querySelector('.quick-nav').classList.add('has-music');
+  const note = document.createElement('p'); note.className = 'media-preview-note';
+  note.textContent = '배경음악을 등록하면 초대장을 열 때 재생됩니다. 하단에서 언제든 끌 수 있어요.';
+  gallery.append(note);
+}
+// The gallery starts hidden, so restore its deep link after media setup.
+if (location.hash === '#gallery' && !gallery.hidden) {
+  requestAnimationFrame(() => gallery.scrollIntoView({block:'start', behavior:'instant'}));
+}
+
+// Local comparison tools are only shown on the explicitly requested preview route.
+if(['localhost','127.0.0.1'].includes(location.hostname)&&new URLSearchParams(location.search).has('motion-preview')){
+  document.body.classList.add('motion-review');
+  const variants=[['heart-in','01 · 하트 속으로','리본이 하트로 모인 뒤, 작아지며 안쪽으로 들어갑니다.'],['heart-out','02 · 하트를 통과','완성된 하트가 커지며, 그 안으로 들어가는 느낌입니다.']];
+  const panel=document.createElement('aside');panel.className='motion-picker';panel.setAttribute('aria-label','진입 모션 비교');
+  const title=document.createElement('p');title.className='motion-picker-title';title.textContent='OPENING STUDY · 하트 모션 2가지';panel.append(title);
+  const tabs=document.createElement('div');tabs.className='motion-options';
+  const description=document.createElement('p');description.className='motion-description';description.setAttribute('aria-live','polite');
+  function choose(v){const middle=panel.querySelector('.motion-actions button:last-child');if(middle)middle.disabled=v[0]==='cut';opening.dataset.motion=v[0];showInvitation();description.textContent=v[2];for(const b of tabs.children)b.setAttribute('aria-pressed',String(b.dataset.motion===v[0]));}
+  for(const v of variants){const b=document.createElement('button');b.type='button';b.dataset.motion=v[0];b.textContent=v[1];b.onclick=()=>choose(v);tabs.append(b);}panel.append(tabs,description);
+  const actions=document.createElement('div');actions.className='motion-actions';
+  for(const [label,action] of [['다시 재생',()=>{showInvitation();requestAnimationFrame(()=>requestAnimationFrame(()=>openButton.click()));}],['중간 모양 보기',()=>{showInvitation();opening.dataset.inspect='true';}]]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=action;actions.append(b);}
+  panel.append(actions);document.body.append(panel);choose(variants.find(v=>v[0]===new URLSearchParams(location.search).get('motion'))||variants[0]);
+}
+
+// Local typography study: same content, three independent type pairings.
+if (['localhost','127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('type-preview')) {
+  finishOpening();
+  document.body.classList.add('type-review');
+  const panel = document.createElement('aside'); panel.className='type-picker'; panel.setAttribute('aria-label','글꼴 시안 비교');
+  const label=document.createElement('p'); label.textContent='TYPE STUDY'; panel.append(label);
+  const options=[['editorial','01 얇은 명조','가벼운 명조 제목 · 단정한 고딕 본문'],['literary','02 차분한 명조','작고 여유 있는 명조 제목 · 명조 초대글'],['modern','03 절제된 고딕','작은 고딕 제목 · 넓은 여백과 얇은 영문 숫자']];
+  const note=document.createElement('p'); note.className='type-note'; note.setAttribute('aria-live','polite');
+  for(const [key,title,description] of options){const b=document.createElement('button'); b.type='button';b.textContent=title;b.dataset.type=key;b.onclick=()=>{document.body.dataset.typography=key;note.textContent=description;for(const el of panel.querySelectorAll('button'))el.setAttribute('aria-pressed',String(el===b));};panel.append(b);}
+  panel.append(note);document.body.append(panel);panel.querySelector('[data-type="literary"]').click();
+}
+
+</script>
+<script type="module">const cover=document.getElementById('invitation-opening'); const reduce=matchMedia('(prefers-reduced-motion: reduce)'); let openingAt=null,raf=0,renderer,animate;
+try{
+let THREE;try{THREE=await import('./three.module.min.js')}catch{THREE=await import('./vendor/three/three.module.min.js')}
+renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.VSMShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;cover.prepend(renderer.domElement);document.querySelectorAll('.fallback-ribbon').forEach(e=>e.remove());
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(35,1,.1,40);camera.position.z=9;
+scene.add(new THREE.HemisphereLight(0xffffff,0xc7bdae,1.5));const key=new THREE.DirectionalLight(0xfff8ea,3.6);key.position.set(-3,6,6);key.castShadow=true;key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-7,right:7,top:10,bottom:-10});key.shadow.bias=-.0005;key.shadow.normalBias=.015;key.shadow.radius=9;key.shadow.blurSamples=12;scene.add(key);const fill=new THREE.DirectionalLight(0xffffff,1);fill.position.set(4,0,5);scene.add(fill);
+const wall=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.MeshStandardMaterial({color:0xf0ede5,roughness:1}));wall.position.z=-3;wall.receiveShadow=true;scene.add(wall);
+// Shallow wall planes catch the light, without literal columns or a door frame.
+const wing=new THREE.Mesh(new THREE.PlaneGeometry(9,24),new THREE.MeshStandardMaterial({color:0xe9e5db,roughness:1}));wing.position.set(-6,1,-1.8);wing.rotation.y=.22;wing.receiveShadow=true;scene.add(wing);
+const label=document.createElement('canvas');label.width=2048;label.height=192;const c=label.getContext('2d');c.fillStyle='#eee7da';c.fillRect(0,0,2048,192);c.fillStyle='#e2d9c8';for(let y=0;y<192;y+=3)c.fillRect(0,y,2048,1);c.strokeStyle='#d6cbb8';c.strokeRect(0,7,2048,178);c.fillStyle='#423b32';c.font='25px Georgia';c.textAlign='center';c.textBaseline='middle';c.fillText('Y O U N G S U N   ·   E U N J I    /    2 7   F E B R U A R Y   2 0 2 7',1024,96);
+const tex=new THREE.CanvasTexture(label);tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+const bands=[];let H=5;
+function band(n){const seg=180,geo=new THREE.BufferGeometry(),p=new Float32Array((seg+1)*2*3),uv=new Float32Array((seg+1)*4),ix=[];for(let i=0;i<=seg;i++){uv.set([i/seg,0,i/seg,1],i*4);if(i<seg){let a=i*2;ix.push(a,a+2,a+1,a+1,a+2,a+3)}}geo.setAttribute('position',new THREE.BufferAttribute(p,3));geo.setAttribute('uv',new THREE.BufferAttribute(uv,2));geo.setIndex(ix);const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({map:tex,side:THREE.DoubleSide,roughness:.76,metalness:.02}));mesh.castShadow=true;mesh.receiveShadow=true;mesh.frustumCulled=false;scene.add(mesh);bands.push(mesh)}band(0);band(1);
+function resize(){let w=innerWidth,h=innerHeight;camera.aspect=w/h;H=Math.max(3.3,1.7*h/w);camera.fov=THREE.MathUtils.radToDeg(2*Math.atan(H/9));camera.updateProjectionMatrix();renderer.setSize(w,h)}addEventListener('resize',resize);resize();
+let px=0,py=0,vx=0,vy=0;cover.addEventListener('pointermove',e=>{px=(e.clientX/innerWidth-.5)*.16;py=(e.clientY/innerHeight-.5)*.08},{passive:true});
+const point=new THREE.Vector3(),tangent=new THREE.Vector3(),side=new THREE.Vector3();const smooth=x=>{x=Math.min(1,Math.max(0,x));return x*x*(3-2*x)};
+animate=now=>{if(cover.hidden)return; if(cover.classList.contains('is-opening')){if(openingAt===null)openingAt=now}else{openingAt=null}let t=reduce.matches?0:now*.00018,q=openingAt===null?0:Math.min(1,(now-openingAt)/2200),travel=smooth((q-.13)/.87);vx+=(px-vx)*.04;vy+=(py-vy)*.04;camera.position.set(vx,-vy,9-travel*6.5);camera.lookAt(0,0,-3);
+bands.forEach((m,n)=>{const sign=n? -1:1;const y=H*(n?-.49:.49);const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(-4,y+sign*.9,-1.7),new THREE.Vector3(-1.5,y+sign*.55,.65),new THREE.Vector3(.1,y,1.3),new THREE.Vector3(1.7,y-sign*.75,-.5),new THREE.Vector3(3.6,y-sign*.3,-2)],false,'centripetal');const pos=m.geometry.attributes.position;for(let i=0;i<=180;i++){let u=i/180;curve.getPoint(u,point);curve.getTangent(u,tangent);side.set(-tangent.y,tangent.x,1.6*Math.sin(u*Math.PI*2+n)).normalize();let width=.38;for(let j=0;j<2;j++){let v=(j-.5)*width;pos.setXYZ(i*2+j,point.x+side.x*v,point.y+side.y*v+Math.sin(t+u*3+n)*.025,point.z+side.z*v)}}pos.needsUpdate=true;m.geometry.computeVertexNormals();m.position.x=sign*travel*3;m.position.y=sign*travel*.55});cover.style.opacity=String(1-smooth((q-.68)/.32));renderer.render(scene,camera);if(!reduce.matches||openingAt!==null)raf=requestAnimationFrame(animate)};animate(performance.now());document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(raf);if(!document.hidden&&!cover.hidden)animate(performance.now())});
+new MutationObserver(()=>{cancelAnimationFrame(raf);if(!cover.hidden)animate(performance.now())}).observe(cover,{attributes:true,attributeFilter:['hidden','class']});
+}catch(e){console.warn('Static opening fallback',e)}
+</script>
 </body>
 </html>
