@@ -105,6 +105,6 @@ h1{font-weight:400;line-height:1.5;letter-spacing:-.055em}.opening-title{font-we
 .is-opening .opening-center{transform:translateY(-50%) scale(.97)}
 
 /* Shared light field links the invitation interior to the opening space. */
-.opening-light{background:radial-gradient(ellipse at 50% 48%,#fff 0%,#fffefb 14%,#f2efe8 34%,#dedbd5 64%,#b7b5b0 100%)}
+.opening-light{background:radial-gradient(ellipse at 50% 48%,#fff 0%,#fffefa 30%,#f5f3ef 65%,#e9e6e0 100%)}
 .welcome{background:radial-gradient(ellipse at 50% 28%,#fffefb 0%,#f4f1eb 46%,#e3e0da 100%)}
 .opening-heading,.opening-signature{color:#66635e}.opening-description{color:#77736c}.opening-center{top:48%}

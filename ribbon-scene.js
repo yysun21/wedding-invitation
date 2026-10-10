@@ -112,7 +112,7 @@ try {
     const pull=exiting&&progress<.24?Math.sin(progress/.24*Math.PI)*.13:0;
     viewX+=(pointerX-viewX)*.045; viewY+=(pointerY-viewY)*.045;
     const parallax=reduce.matches?0:1-gather;
-    camera.position.set(viewX*.22*parallax, -viewY*.14*parallax,mode==='heart-out'?cameraZ:10);
+    camera.position.set(viewX*.07*parallax, -viewY*.04*parallax,mode==='heart-out'?cameraZ:10);
     camera.lookAt(0,0,.2);
     camera.zoom=1;
     camera.updateProjectionMatrix();
@@ -122,15 +122,15 @@ try {
       const phase=t*direction+n*1.5;
       const H=halfHeight;
       // The two visible bands are consecutive sections of the same lettering stream.
-      // A full spatial loop, not a wave: its rear arc turns edge-on behind the front arc.
-      const band=H*(n===0?.52:-.54);
-      const driftPhase=Math.sin(t*.38+n)*.09;
-      const nodes=[[-3.8,-.42,1.8],[-1.2,-.55,1.8],[.8,-.32,1.25],
-        [1.6,.28,-.15],[.7,.92,-1.7],[-.85,.78,-2],
-        [-1.65,.12,-.5],[-.8,-.72,1.1],[3.8,-.8,1.7]];
-      const curve=new THREE.CatmullRomCurve3(nodes.map(([x,y,z])=>new THREE.Vector3(
-        x*direction, band+y*direction+driftPhase, z
-      )),false,'centripetal');
+      // One open arc per band leaves a calm center without crossing or rear loops.
+      const band=H*(n===0?.58:-.60);
+      const curve=new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-3.2*direction,band+.28,-.7),
+        new THREE.Vector3(-1.45*direction,band+.06,-.2),
+        new THREE.Vector3(0,band-.14,.55),
+        new THREE.Vector3(1.45*direction,band+.04,.9),
+        new THREE.Vector3(3.2*direction,band+.34,.1)
+      ],false,'centripetal');
       let target;
       if(mode==='orbit'){
         target=new THREE.Curve();
@@ -151,21 +151,24 @@ try {
       }
       const targetPoint=new THREE.Vector3(),targetTangent=new THREE.Vector3();
       const attr=mesh.geometry.attributes.position;
+      const uvAttr=mesh.geometry.attributes.uv;
       for(let i=0;i<=segments;i++){
         const u=i/segments;curve.getPointAt(u,point);curve.getTangentAt(u,tangent);
         point.y=band+(point.y-band)*(1-tension*.22);
         if(shaped){target.getPoint(u,targetPoint);target.getTangent(u,targetTangent);point.lerp(targetPoint,gather);tangent.lerp(targetTangent,gather).normalize();}
         side.set(-tangent.y,tangent.x,0).normalize();normal.crossVectors(tangent,side).normalize();
-        const twist=(1-gather)*((Math.sin(u*Math.PI*2-phase*.15)*1.25)*(1-tension*.85)+(shaped?0:escape*.9));
+        const twist=(1-gather)*((Math.sin(u*Math.PI*1.1+n*.4)*.42)*(1-tension*.85)+(shaped?0:escape*.9));
         side.multiplyScalar(Math.cos(twist)).addScaledVector(normal,Math.sin(twist));
-        const drift=Math.sin(u*8-phase)*.055*(1-gather);
+        const drift=Math.sin(u*4-phase*.35)*.012*(1-gather);
         for(let j=0;j<=across;j++){
-          const v=j/across-.5;const width=((n===0?.34:.4)+Math.sin(u*6+n)*.035)*(1-gather)+.22*gather;
+          const v=j/across-.5;const width=((n===0?.25:.28)+Math.sin(u*3+n)*.015)*(1-gather)+.22*gather;
           const k=i*(across+1)+j;
+          const flip=n===1?1-gather:0;
+          uvAttr.setXY(k,(n+u+(1-2*u)*flip)*textSpan,j/across+(1-2*j/across)*flip);
           attr.setXYZ(k,point.x+side.x*v*width,point.y+side.y*v*width+drift,point.z+side.z*v*width+.035*Math.cos(v*Math.PI*2));
         }
       }
-      attr.needsUpdate=true;mesh.geometry.computeVertexNormals();
+      attr.needsUpdate=true;uvAttr.needsUpdate=true;mesh.geometry.computeVertexNormals();
       mesh.scale.setScalar(1);
       mesh.material.opacity=1;mesh.material.transparent=false;
       const pink=(mode==='heart-in'||mode==='heart-out')?smooth((gather-.15)/.85):0;
@@ -182,7 +185,7 @@ try {
         mesh.material.transparent=mesh.material.opacity<1;
       }
       mesh.rotation.z=shaped?(mode==='orbit'?travel*Math.PI*.65:0):-escape*.16;
-      mesh.material.map.offset.x=reduce.matches?0:-elapsed*.035;
+      mesh.material.map.offset.x=reduce.matches?0:-elapsed*.012*(n===1?2*gather-1:1);
       mesh.rotation.y=shaped? (mode==='heart-in'?travel*.35:0):Math.sin(phase)*.035;
     });
     renderer.render(scene,camera);
