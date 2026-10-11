@@ -321,8 +321,8 @@ try {
     void main(){
       vec2 uv=vUv;float y=1.-uv.y;
       float top=.09+.23*uv.x;float bottom=.66+.18*uv.x;
-      float upper=exp(-pow((y-top)/.085,4.));
-      float lower=exp(-pow((y-bottom)/.09,4.));
+      float upper=exp(-pow(abs((y-top)/.085),4.));
+      float lower=exp(-pow(abs((y-bottom)/.09),4.));
       float edge=sin(3.14159265*uv.x);
       uv.y+=edge*.0045*(upper*sin(time+uv.x*3.)+lower*sin(time*.83+uv.x*3.+2.));
       gl_FragColor=texture2D(art,clamp(uv,vec2(.001),vec2(.999)));
