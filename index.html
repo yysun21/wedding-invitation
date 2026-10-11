@@ -16,7 +16,7 @@
 #invitation-opening{position:fixed;inset:0;z-index:2;overflow:hidden;background:#efede8;font-family:"Noto Serif KR",serif;color:#34333b;max-width:none;transform:none!important;clip-path:none!important}
 #invitation-opening[hidden]{display:none!important}
 .entrance-frame{position:relative;width:100%;height:100%;margin:auto;overflow:hidden;background:#fafaf9;isolation:isolate}
-.entrance-scene{position:absolute;inset:0;transform-origin:49% 43%;transition:transform 2.2s cubic-bezier(.55,0,.2,1),opacity .8s 1.45s;will-change:transform}
+.entrance-scene{z-index:0;position:absolute;inset:0;transform-origin:49% 43%;transition:transform 2.2s cubic-bezier(.55,0,.2,1),opacity .8s 1.45s;will-change:transform}
 .entrance-scene svg,.entrance-scene canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ribbon-layer{position:absolute;inset:0;z-index:1;overflow:hidden}.entrance-scene .room-occluder{z-index:2;clip-path:polygon(24% 24%,73% 23%,73% 61%,24% 61%)}
 /* Satin artwork retains its original color. The two exposed folds share
@@ -27,11 +27,11 @@
 @keyframes satin-lower-breathe{0%,100%{transform:translate(0,-2px) rotate(.25deg)}50%{transform:translate(3px,3px) rotate(-.25deg)}}
 #invitation-opening[hidden] .satin-upper,#invitation-opening[hidden] .satin-lower{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){.satin-upper,.satin-lower{animation:none!important}.satin-lower{transform:translateY(0)}}
-#invitation-opening .copy{position:absolute;top:38.8%;left:0;width:100%;text-align:center;transition:opacity .45s,transform .65s}
+#invitation-opening .copy{z-index:3;position:absolute;top:38.8%;left:0;width:100%;text-align:center;transition:opacity .45s,transform .65s}
 #invitation-opening .copy h1{font-family:inherit;font-size:clamp(21px,5.8vw,28px);font-weight:400;letter-spacing:-.055em;margin:0;line-height:1.6}
 #invitation-opening .opening-date{font:10px Georgia,serif;letter-spacing:.24em;color:#77716d;margin:0 0 15px}
 #invitation-opening .opening-note{font:400 11px/2.1 "Noto Serif KR",serif;letter-spacing:-.025em;color:#77716d;margin:16px 0 0}
-#open-invitation{position:absolute;bottom:max(3.8%,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:126px;min-height:46px;padding:10px 2px;border:0;border-bottom:1px solid #8c8983;background:transparent;color:#393840;font-family:inherit;font-size:13px;letter-spacing:.12em;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:opacity .3s}
+#open-invitation{z-index:3;position:absolute;bottom:max(3.8%,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:126px;min-height:46px;padding:10px 2px;border:0;border-bottom:1px solid #8c8983;background:transparent;color:#393840;font-family:inherit;font-size:13px;letter-spacing:.12em;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:opacity .3s}
 #open-invitation:focus-visible{outline:1px solid #777;outline-offset:7px}
 #invitation-opening.departing .entrance-scene{transform:scale(3.6);opacity:0}
 #invitation-opening.departing .copy{opacity:0;transform:translateY(-8px)}
