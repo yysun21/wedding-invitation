@@ -28,14 +28,14 @@
 #invitation-opening[hidden] .satin-upper,#invitation-opening[hidden] .satin-lower{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){.satin-upper,.satin-lower{animation:none!important}.satin-lower{transform:translateY(0)}}
 /* Mobile-first: copy and action share the doorway's center, in frame units. */
-#invitation-opening .copy{z-index:3;position:absolute;top:34%;left:25%;width:47%;text-align:center;transition:opacity .45s,transform .65s}
-#invitation-opening .copy h1{font-family:inherit;font-size:6cqw;font-weight:400;letter-spacing:-.06em;margin:0;line-height:1.5;white-space:nowrap}
-#invitation-opening .opening-date{font:2.3cqw Georgia,serif;letter-spacing:.2em;color:#77716d;margin:0 0 2cqh}
-#invitation-opening .opening-note{font:400 2.65cqw/2 "Noto Serif KR",serif;letter-spacing:-.04em;color:#77716d;margin:1.5cqh 0 0;white-space:nowrap}
-#open-invitation{z-index:3;position:relative;bottom:auto;left:auto;transform:none;width:29cqw;min-height:44px;margin:2.1cqh auto 0;padding:8px 0;border:0;border-bottom:1px solid #aaa49d;background:transparent;color:#393840;font-family:inherit;font-size:2.9cqw;letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:opacity .3s}
+#invitation-opening .copy{z-index:3;position:absolute;top:42%;left:25%;width:47%;transform:translateY(-50%);text-align:center;transition:opacity .45s,transform .65s}
+#invitation-opening .copy h1{font-family:inherit;font-size:6.9cqw;font-weight:400;letter-spacing:-.06em;margin:0;line-height:1.5;white-space:nowrap}
+#invitation-opening .opening-date{font:2.7cqw Georgia,serif;letter-spacing:.2em;color:#77716d;margin:0 0 1.6cqh}
+#invitation-opening .opening-note{font:400 3.05cqw/1.9 "Noto Serif KR",serif;letter-spacing:-.04em;color:#77716d;margin:1.4cqh 0 0;white-space:nowrap}
+#open-invitation{z-index:3;position:relative;bottom:auto;left:auto;transform:none;width:29cqw;min-height:44px;margin:1.2cqh auto 0;padding:8px 0;border:0;border-bottom:1px solid #aaa49d;background:transparent;color:#393840;font-family:inherit;font-size:3.25cqw;letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:opacity .3s}
 #open-invitation:focus-visible{outline:1px solid #777;outline-offset:7px}
 #invitation-opening.departing .entrance-scene{transform:scale(3.6);opacity:0}
-#invitation-opening.departing .copy{opacity:0;transform:translateY(-8px)}
+#invitation-opening.departing .copy{opacity:0;transform:translateY(calc(-50% - 8px))}
 #invitation-opening.departing #open-invitation{opacity:0;pointer-events:none}
 
 @media(prefers-reduced-motion:reduce){.entrance-scene,#invitation-opening .copy,#open-invitation{transition:none!important}}
