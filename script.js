@@ -9,7 +9,8 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function showInvitation() {
   clearTimeout(openingTimer);
   openingStarted = false;
-  opening.classList.remove('is-opening');
+  opening.classList.remove('is-opening', 'departing');
+  opening.style.opacity='1';
   delete opening.dataset.inspect;
   openButton.removeAttribute('aria-disabled');
   opening.hidden = false;
@@ -22,7 +23,8 @@ function finishOpening() {
   opening.hidden = true;
   document.body.classList.remove('opening-active', 'opening-reveal');
   invitationMain.inert = false;
-  const title = document.querySelector('h1');
+  document.getElementById('invitation').scrollIntoView({behavior:'instant'});
+  const title = document.querySelector('#invitation h2');
   title.setAttribute('tabindex','-1');
   title.focus({preventScroll:true});
 }
@@ -33,10 +35,10 @@ openButton.addEventListener('click', () => {
   openingStarted = true;
   if (!musicPausedByGuest) playMusic();
   openButton.setAttribute('aria-disabled', 'true');
-  opening.classList.add('is-opening');
+  opening.classList.add('is-opening', 'departing');
   document.body.classList.add('opening-reveal');
   if (reducedMotion.matches) finishOpening();
-  else openingTimer = setTimeout(finishOpening, opening.dataset.motion && opening.dataset.motion !== 'cut' ? 2850 : 1700);
+  else openingTimer = setTimeout(finishOpening, 2300);
 });
 document.getElementById('reopen-invitation').addEventListener('click', () => {
   showInvitation();
@@ -98,7 +100,7 @@ const photos = Array.isArray(media.photos) ? media.photos.filter(p => p && typeo
 const featured = document.createElement('div'); featured.className = 'gallery-featured';
 const featuredImage = document.createElement('img'); featuredImage.decoding = 'async';
 const strip = document.createElement('div'); strip.className = 'gallery-thumbnails'; strip.setAttribute('role', 'group'); strip.setAttribute('aria-label', '사진 선택');
-const caption = document.getElementById('gallery-caption'); caption.setAttribute('aria-live', 'polite');
+
 const thumbnails = [];
 function selectPhoto(index) {
   const photo = photos[index];
@@ -107,7 +109,6 @@ function selectPhoto(index) {
   featuredImage.hidden = false;
   featured.querySelector('.photo-error')?.remove();
   thumbnails.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
-  caption.textContent = `${String(index + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
 }
 featuredImage.addEventListener('error', () => {
   featuredImage.hidden = true;
@@ -137,18 +138,24 @@ for (let index = photos.length; index < 3; index++) {
   const slot = document.createElement('div'); slot.className = 'gallery-thumbnail-placeholder'; slot.textContent = '사진 준비 중'; strip.append(slot);
 }
 if (photos.length) selectPhoto(0);
-else { featuredImage.hidden = true; featured.textContent = '우리의 사진을 곧 이곳에 담을게요.'; caption.textContent = ''; }
+else { featuredImage.hidden = true; featured.textContent = '우리의 사진을 곧 이곳에 담을게요.'; }
 gallery.hidden = false;
 const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
 const audio = document.getElementById('background-music');
 const musicButton = document.getElementById('music-toggle');
+const entranceMusicButton = document.getElementById('entrance-music-toggle');
 const music = media.music || {};
 let musicPausedByGuest = false;
 let musicUnavailable = false;
 function updateMusicButton() {
   const playing = !audio.paused;
   musicButton.setAttribute('aria-pressed', String(playing));
-  musicButton.setAttribute('aria-label', playing ? '배경음악 일시정지' : '배경음악 재생');
+  for (const button of [musicButton, entranceMusicButton]) {
+    button.setAttribute('aria-pressed', String(playing));
+    button.setAttribute('aria-label', playing ? '배경음악 일시정지' : '배경음악 재생');
+  }
+  entranceMusicButton.querySelector('.music-label').textContent = playing ? '음악 끄기' : '음악 켜기';
+  musicButton.querySelector('.nav-music-label').textContent = playing ? '음악 끄기' : '음악 켜기';
 }
 async function playMusic() {
   if (!music.src || musicUnavailable) return;
@@ -159,6 +166,8 @@ if (typeof music.src === 'string' && music.src.trim()) {
   audio.src = music.src;
   audio.volume = Number.isFinite(music.volume) ? Math.min(1, Math.max(0, music.volume)) : 0.25;
   musicButton.hidden = false;
+  entranceMusicButton.hidden = false;
+  entranceMusicButton.title = music.title || '배경음악';
   musicButton.title = music.title || '배경음악';
   document.querySelector('.quick-nav').classList.add('has-music');
 }
@@ -167,14 +176,23 @@ audio.addEventListener('pause', updateMusicButton);
 audio.addEventListener('error', () => {
   musicUnavailable = true;
   musicButton.hidden = true;
+  entranceMusicButton.hidden = true;
   document.querySelector('.quick-nav').classList.remove('has-music');
   notify('배경음악을 불러오지 못했습니다.');
 });
-musicButton.addEventListener('click', () => {
+function toggleMusic() {
   if (!music.src) { notify('배경음악 파일을 아직 등록하지 않았습니다.'); return; }
   if (audio.paused) { musicPausedByGuest = false; playMusic(); }
   else { musicPausedByGuest = true; audio.pause(); }
-});
+}
+[musicButton, entranceMusicButton].forEach(button => button.addEventListener('click', toggleMusic));
+function startEntranceMusic(event) {
+  if (event.target.closest('button, a') || musicPausedByGuest || document.hidden) return;
+  if (audio.paused) playMusic();
+}
+opening.addEventListener('pointerup', startEntranceMusic);
+// Attempt unmuted playback; browsers may require the first user gesture.
+playMusic();
 document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); });
 if (previewMedia && !music.src) {
   musicButton.hidden = false;
@@ -215,4 +233,14 @@ if (['localhost','127.0.0.1'].includes(location.hostname) && new URLSearchParams
   const note=document.createElement('p'); note.className='type-note'; note.setAttribute('aria-live','polite');
   for(const [key,title,description] of options){const b=document.createElement('button'); b.type='button';b.textContent=title;b.dataset.type=key;b.onclick=()=>{document.body.dataset.typography=key;note.textContent=description;for(const el of panel.querySelectorAll('button'))el.setAttribute('aria-pressed',String(el===b));};panel.append(b);}
   panel.append(note);document.body.append(panel);panel.querySelector('[data-type="literary"]').click();
+}
+
+// Mobile pinch protection; one-finger scrolling and gallery swiping stay enabled.
+function preventPinch(event) {
+  if (event.touches && event.touches.length > 1) event.preventDefault();
+}
+document.addEventListener('touchstart', preventPinch, { passive: false });
+document.addEventListener('touchmove', preventPinch, { passive: false });
+for (const eventName of ['gesturestart', 'gesturechange']) {
+  document.addEventListener(eventName, event => event.preventDefault(), { passive: false });
 }
