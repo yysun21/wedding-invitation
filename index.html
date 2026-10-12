@@ -10,7 +10,75 @@
   <title>윤영선 · 이은지 | 2027.02.27</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23faf8f2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-size='37' fill='%2388795c'%3E%26%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css?v=20261010-bouquet">
-  <script src="media-config.js?v=20261010-gallery12"></script>
+  <script id="invitation-media-config">
+window.INVITATION_MEDIA = {
+  "photos": [
+    {
+      "src": "media/studio.jpeg",
+      "alt": "웨딩드레스와 턱시도를 입고 함께 선 영선과 은지",
+      "group": "실크 웨딩"
+    },
+    {
+      "src": "media/gallery-01.jpg",
+      "alt": "흰 드레스를 입고 서 있는 은지",
+      "group": "실크 웨딩"
+    },
+    {
+      "src": "media/gallery-03.jpg",
+      "alt": "정장을 입고 서 있는 영선",
+      "group": "실크 웨딩"
+    },
+    {
+      "src": "media/gallery-02.jpg",
+      "alt": "소파에 나란히 앉은 은지와 영선",
+      "group": "클래식 웨딩"
+    },
+    {
+      "src": "media/gallery-04.jpg",
+      "alt": "영선을 뒤에서 안고 있는 은지",
+      "group": "클래식 웨딩"
+    },
+    {
+      "src": "media/gallery-08.jpg",
+      "alt": "손을 잡고 서 있는 은지와 영선",
+      "group": "클래식 웨딩"
+    },
+    {
+      "src": "media/gallery-09.jpg",
+      "alt": "턱을 괴고 있는 은지",
+      "group": "클래식 웨딩"
+    },
+    {
+      "src": "media/gallery-05.jpg",
+      "alt": "베일을 쓰고 분홍 꽃을 든 은지",
+      "group": "베일"
+    },
+    {
+      "src": "media/gallery-06.jpg",
+      "alt": "검은 셔츠를 입고 턱을 괸 영선",
+      "group": "블랙 포트레이트"
+    },
+    {
+      "src": "media/gallery-07.jpg",
+      "alt": "검은 드레스를 입고 앉은 은지",
+      "group": "블랙 포트레이트"
+    },
+    {
+      "src": "media/gallery-10.jpg",
+      "alt": "검은 정장을 입은 영선의 옆모습",
+      "group": "블랙 포트레이트"
+    }
+  ],
+  "music": {
+    "src": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3",
+    "title": "Gymnopedie No. 1 — Kevin MacLeod",
+    "volume": 0.22
+  },
+  "cover": {
+    "src": "media/gallery-11.jpg"
+  }
+};
+</script>
 <style>
 /* Concept A: preserve the approved composition at every viewport size. */
 #invitation-opening{position:fixed;inset:0;z-index:2;overflow:hidden;background:#efede8;font-family:"Noto Serif KR",serif;color:#34333b;max-width:none;transform:none!important;clip-path:none!important}
@@ -37,6 +105,7 @@
 #invitation-opening.departing #open-invitation{opacity:0;pointer-events:none}
 
 @media(prefers-reduced-motion:reduce){.entrance-scene,#invitation-opening .copy,#open-invitation{transition:none!important}}
+.music-credit{font-size:10px;line-height:1.9;color:#777;margin:28px auto 0;letter-spacing:0}.music-credit a{color:inherit;text-underline-offset:3px}
 </style>
 </head>
 <body data-typography="literary">
@@ -90,7 +159,7 @@
         <details><summary>주차 안내<span class="expand" aria-hidden="true">+</span></summary><p>반얀트리 옆 정문·후문 800대 가능<br>후문 주차 시 계단 이용 필수</p></details>
       </div>
     </section>
-    <footer><p class="closing">저희의 첫 봄을<br>함께해 주셔서 감사합니다.</p><p class="footer-names">영선 · 은지 드림</p><p class="footer-date">FEBRUARY 27, 2027</p></footer>
+    <footer><p class="closing">저희의 첫 봄을<br>함께해 주셔서 감사합니다.</p><p class="footer-names">영선 · 은지 드림</p><p class="footer-date">FEBRUARY 27, 2027</p><p class="music-credit">BGM · Gymnopedie No. 1<br>Erik Satie · <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100787" target="_blank" rel="noopener noreferrer">Kevin MacLeod (incompetech.com)</a><br><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a> · 원본 음원 사용</p></footer>
     <nav class="quick-nav" aria-label="빠른 안내"><a href="#date">예식 안내</a><a href="#location">오시는 길</a><button type="button" id="share">청첩장 공유 <span aria-hidden="true">↗</span></button><button type="button" id="music-toggle" class="music-toggle" aria-label="배경음악 재생" aria-pressed="false" hidden><span aria-hidden="true">♪</span></button></nav>
   </main>
   <audio id="background-music" loop preload="none"></audio>
@@ -207,7 +276,7 @@ function selectPhoto(index) {
   featuredImage.hidden = false;
   featured.querySelector('.photo-error')?.remove();
   thumbnails.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
-  caption.textContent = `${String(index + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
+  caption.textContent = `${photo.group ? photo.group + ' · ' : ''}${String(index + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}`;
 }
 featuredImage.addEventListener('error', () => {
   featuredImage.hidden = true;
