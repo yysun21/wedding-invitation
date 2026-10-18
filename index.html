@@ -11,6 +11,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23faf8f2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia' font-size='37' fill='%2388795c'%3E%26%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css?v=20261010-bouquet">
   <script id="invitation-media-config">
+// Photos grouped by outfit and setting. Music licensed under CC BY 4.0.
 window.INVITATION_MEDIA = {
   "photos": [
     {
@@ -76,8 +77,25 @@ window.INVITATION_MEDIA = {
   },
   "cover": {
     "src": "media/gallery-11.jpg"
+  },
+  "accounts": {
+    "groom": [
+      {
+        "bank": "신한은행",
+        "number": "110-447-515828",
+        "holder": "윤영선"
+      }
+    ],
+    "bride": [
+      {
+        "bank": "하나은행",
+        "number": "357-910293-60307",
+        "holder": "이은지"
+      }
+    ]
   }
 };
+
 </script>
 <style>
 /* Concept A: preserve the approved composition at every viewport size. */
@@ -107,6 +125,23 @@ window.INVITATION_MEDIA = {
 @media(prefers-reduced-motion:reduce){.entrance-scene,#invitation-opening .copy,#open-invitation{transition:none!important}}
 #entrance-music-toggle{position:absolute;top:100%;left:50%;transform:translateX(-50%);display:block;min-width:88px;min-height:44px;margin-top:4px;padding:10px 8px;border:0;border-radius:0;background:transparent;color:#77736d;font-family:inherit;font-size:clamp(10px,2.65cqw,12px);font-weight:400;letter-spacing:.04em;white-space:nowrap;cursor:pointer}#entrance-music-toggle[hidden]{display:none}#entrance-music-toggle:focus-visible{outline:1px solid #aaa49d;outline-offset:0}
 .music-credit{font-size:10px;line-height:1.9;color:#777;margin:28px auto 0;letter-spacing:0}.music-credit a{color:inherit;text-underline-offset:3px}
+
+/* Preserve scrolling and thumbnail selection while suppressing image callouts. */
+#gallery img{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+.gallery-featured,.gallery-thumbnails,.gallery-thumbnail{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.accounts-section{padding-top:32px}
+.accounts-section h2{margin-bottom:28px}
+.account-group{border-top:1px solid var(--line)}
+.account-group:last-child{border-bottom:1px solid var(--line)}
+.account-group summary{font-family:inherit;font-size:13px;color:var(--ink)}
+.account-chevron{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1;transition:transform .2s}
+.account-group[open] .account-chevron{transform:rotate(180deg)}
+.account-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:0 0 22px;font-size:12px;line-height:1.9}
+.account-row+.account-row{padding-top:18px;border-top:1px solid var(--line)}
+.account-owner{color:var(--ink)}
+.account-number{overflow-wrap:anywhere;font-variant-numeric:tabular-nums;color:#555;user-select:text}
+.account-copy{min-width:48px;min-height:44px;border:0;border-radius:0;background:none;color:var(--ink);font:inherit;font-size:11px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.account-copy:focus-visible,.account-group summary:focus-visible{outline:1px solid currentColor;outline-offset:4px}
 </style>
 <style>
 #open-invitation{width:32cqw;max-width:154px;min-width:116px;min-height:42px;margin:3cqh auto 0;padding:11px 18px;border:1px solid rgba(95,90,82,.25);border-radius:999px;background:rgba(255,255,255,.18);color:#58534e;justify-content:center;font-size:clamp(11px,2.7cqw,13px);line-height:1.4;letter-spacing:.08em;transition:background .2s,border-color .2s,opacity .3s}
@@ -184,6 +219,10 @@ html,body{touch-action:pan-x pan-y}
         <details><summary>시내버스<span class="expand" aria-hidden="true">+</span></summary><p>국립극장 앞 하차 · 간선버스 420번<br>남산순환버스 01A, 01B번</p></details>
         <details><summary>주차 안내<span class="expand" aria-hidden="true">+</span></summary><p>반얀트리 옆 정문·후문 800대 가능<br>후문 주차 시 계단 이용 필수</p></details>
       </div>
+    </section>
+    <section class="accounts-section section" id="accounts" aria-labelledby="accounts-title" hidden>
+      <h2 id="accounts-title">마음 전하실 곳</h2>
+      <div id="account-groups"></div>
     </section>
     <footer><p class="closing">저희의 첫 봄을<br>함께해 주셔서 감사합니다.</p><p class="footer-names">영선 · 은지 드림</p><p class="footer-date">FEBRUARY 27, 2027</p><p class="music-credit">BGM · Amberlight<br><a href="https://www.scottbuckley.com.au/library/amberlight/" target="_blank" rel="noopener noreferrer">Scott Buckley · www.scottbuckley.com.au</a><br><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a> · 원본 음원 사용</p></footer>
     <nav class="quick-nav" aria-label="빠른 안내"><a href="#date">예식 안내</a><a href="#location">오시는 길</a><button type="button" id="share">청첩장 공유 <span aria-hidden="true">↗</span></button><button type="button" id="music-toggle" class="music-toggle" aria-label="배경음악 재생" aria-pressed="false" hidden><svg class="sound-mark" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-4v12l-4-4H3z"/><path class="sound-waves" d="M13 7c2 1.5 2 4.5 0 6m3-9c4 3 4 9 0 12"/><path class="sound-off" d="m13 8 4 4m0-4-4 4"/></svg><span class="nav-music-label">음악 켜기</span></button></nav>
@@ -334,6 +373,38 @@ for (let index = photos.length; index < 3; index++) {
 if (photos.length) selectPhoto(0);
 else { featuredImage.hidden = true; featured.textContent = '우리의 사진을 곧 이곳에 담을게요.'; }
 gallery.hidden = false;
+
+// Block native photo save/drag menus without cancelling scrolling or button clicks.
+for (const eventName of ['contextmenu', 'dragstart']) {
+  document.getElementById('photo-grid').addEventListener(eventName, event => event.preventDefault());
+}
+document.querySelectorAll('#gallery img').forEach(image => { image.draggable = false; });
+
+// Unconfigured accounts stay hidden; never publish placeholder account numbers.
+const accountSection = document.getElementById('accounts');
+const accountGroups = document.getElementById('account-groups');
+for (const [side, label] of [['groom', '신랑측'], ['bride', '신부측']]) {
+  const entries = media.accounts?.[side];
+  const valid = Array.isArray(entries) ? entries.filter(entry =>
+    entry && ['bank', 'number', 'holder'].every(key => typeof entry[key] === 'string' && entry[key].trim())) : [];
+  if (!valid.length) continue;
+  const details = document.createElement('details'); details.className = 'account-group';
+  const summary = document.createElement('summary'); summary.textContent = label + ' 계좌번호';
+  summary.insertAdjacentHTML('beforeend', '<svg class="account-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg>');
+  details.append(summary);
+  for (const entry of valid) {
+    const row = document.createElement('div'); row.className = 'account-row';
+    const info = document.createElement('div');
+    const owner = document.createElement('p'); owner.className = 'account-owner'; owner.textContent = entry.holder;
+    const number = document.createElement('p'); number.className = 'account-number'; number.textContent = entry.bank + ' ' + entry.number;
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'account-copy'; button.textContent = '복사';
+    button.setAttribute('aria-label', label + ' ' + entry.holder + ' 계좌번호 복사');
+    button.addEventListener('click', async () => { if (await copy(entry.number)) notify('계좌번호를 복사했습니다.'); });
+    info.append(owner, number); row.append(info, button); details.append(row);
+  }
+  accountGroups.append(details); accountSection.hidden = false;
+}
+
 const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
 const audio = document.getElementById('background-music');
 const musicButton = document.getElementById('music-toggle');
