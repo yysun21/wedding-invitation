@@ -64,5 +64,21 @@ window.INVITATION_MEDIA = {
   },
   "cover": {
     "src": "media/gallery-11.jpg"
+  },
+  "accounts": {
+    "groom": [
+      {
+        "bank": "신한은행",
+        "number": "110-447-515828",
+        "holder": "윤영선"
+      }
+    ],
+    "bride": [
+      {
+        "bank": "하나은행",
+        "number": "357-910293-60307",
+        "holder": "이은지"
+      }
+    ]
   }
 };
