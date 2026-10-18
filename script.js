@@ -141,6 +141,38 @@ for (let index = photos.length; index < 3; index++) {
 if (photos.length) selectPhoto(0);
 else { featuredImage.hidden = true; featured.textContent = '우리의 사진을 곧 이곳에 담을게요.'; }
 gallery.hidden = false;
+
+// Block native photo save/drag menus without cancelling scrolling or button clicks.
+for (const eventName of ['contextmenu', 'dragstart']) {
+  document.getElementById('photo-grid').addEventListener(eventName, event => event.preventDefault());
+}
+document.querySelectorAll('#gallery img').forEach(image => { image.draggable = false; });
+
+// Unconfigured accounts stay hidden; never publish placeholder account numbers.
+const accountSection = document.getElementById('accounts');
+const accountGroups = document.getElementById('account-groups');
+for (const [side, label] of [['groom', '신랑측'], ['bride', '신부측']]) {
+  const entries = media.accounts?.[side];
+  const valid = Array.isArray(entries) ? entries.filter(entry =>
+    entry && ['bank', 'number', 'holder'].every(key => typeof entry[key] === 'string' && entry[key].trim())) : [];
+  if (!valid.length) continue;
+  const details = document.createElement('details'); details.className = 'account-group';
+  const summary = document.createElement('summary'); summary.textContent = label + ' 계좌번호';
+  summary.insertAdjacentHTML('beforeend', '<svg class="account-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg>');
+  details.append(summary);
+  for (const entry of valid) {
+    const row = document.createElement('div'); row.className = 'account-row';
+    const info = document.createElement('div');
+    const owner = document.createElement('p'); owner.className = 'account-owner'; owner.textContent = entry.holder;
+    const number = document.createElement('p'); number.className = 'account-number'; number.textContent = entry.bank + ' ' + entry.number;
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'account-copy'; button.textContent = '복사';
+    button.setAttribute('aria-label', label + ' ' + entry.holder + ' 계좌번호 복사');
+    button.addEventListener('click', async () => { if (await copy(entry.number)) notify('계좌번호를 복사했습니다.'); });
+    info.append(owner, number); row.append(info, button); details.append(row);
+  }
+  accountGroups.append(details); accountSection.hidden = false;
+}
+
 const previewMedia = ['localhost', '127.0.0.1'].includes(location.hostname);
 const audio = document.getElementById('background-music');
 const musicButton = document.getElementById('music-toggle');
