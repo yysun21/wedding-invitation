@@ -167,7 +167,7 @@ for (const [side, label] of [['groom', '신랑측'], ['bride', '신부측']]) {
     const number = document.createElement('p'); number.className = 'account-number'; number.textContent = entry.bank + ' ' + entry.number;
     const button = document.createElement('button'); button.type = 'button'; button.className = 'account-copy'; button.textContent = '복사';
     button.setAttribute('aria-label', label + ' ' + entry.holder + ' 계좌번호 복사');
-    button.addEventListener('click', async () => { if (await copy(entry.number)) notify('계좌번호를 복사했습니다.'); });
+    button.addEventListener('click', async () => { if (await copy(entry.number.replace(/[^0-9]/g, ''))) notify('계좌번호를 복사했습니다.'); });
     info.append(owner, number); row.append(info, button); details.append(row);
   }
   accountGroups.append(details); accountSection.hidden = false;
