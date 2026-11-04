@@ -12,13 +12,13 @@ window.INVITATION_MEDIA = {
       "group": "실크 웨딩"
     },
     {
-      "src": "media/wedding-1333.jpg",
-      "alt": "실크 웨딩 촬영 사진 1333",
+      "src": "media/wedding-0504.jpg",
+      "alt": "실크 웨딩 촬영 사진 0504",
       "group": "실크 웨딩"
     },
     {
-      "src": "media/wedding-0504.jpg",
-      "alt": "실크 웨딩 촬영 사진 0504",
+      "src": "media/wedding-1333.jpg",
+      "alt": "실크 웨딩 촬영 사진 1333",
       "group": "실크 웨딩"
     },
     {
