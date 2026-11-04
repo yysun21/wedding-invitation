@@ -97,23 +97,18 @@ window.INVITATION_MEDIA = {
       "group": "튜엘 웨딩"
     },
     {
-      "src": "media/wedding-1369.jpg",
-      "alt": "웨딩 촬영 사진 1369",
-      "group": "웨딩"
-    },
-    {
       "src": "media/wedding-0935.jpg",
       "alt": "웨딩 촬영 사진 0935",
       "group": "웨딩"
     },
     {
-      "src": "media/wedding-0441.jpg",
-      "alt": "블랙 포트레이트 촬영 사진 0441",
-      "group": "블랙 포트레이트"
+      "src": "media/wedding-1369.jpg",
+      "alt": "웨딩 촬영 사진 1369",
+      "group": "웨딩"
     },
     {
-      "src": "media/wedding-0447.jpg",
-      "alt": "블랙 포트레이트 촬영 사진 0447",
+      "src": "media/wedding-0441.jpg",
+      "alt": "블랙 포트레이트 촬영 사진 0441",
       "group": "블랙 포트레이트"
     },
     {
@@ -124,6 +119,11 @@ window.INVITATION_MEDIA = {
     {
       "src": "media/wedding-0658.jpg",
       "alt": "블랙 포트레이트 촬영 사진 0658",
+      "group": "블랙 포트레이트"
+    },
+    {
+      "src": "media/wedding-0447.jpg",
+      "alt": "블랙 포트레이트 촬영 사진 0447",
       "group": "블랙 포트레이트"
     }
   ],
