@@ -160,7 +160,7 @@ window.INVITATION_MEDIA = {
         "holder": "이은지"
       },
       {
-        "bank": "농협",
+        "bank": "농협은행",
         "number": "352-1589-0834-53",
         "holder": "이경환"
       }
