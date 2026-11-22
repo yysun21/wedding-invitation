@@ -141,6 +141,16 @@ window.INVITATION_MEDIA = {
         "bank": "신한은행",
         "number": "110-447-515828",
         "holder": "윤영선"
+      },
+      {
+        "bank": "신한은행",
+        "number": "110-133-320076",
+        "holder": "윤석조"
+      },
+      {
+        "bank": "SC제일은행",
+        "number": "402-20-531335",
+        "holder": "홍성금"
       }
     ],
     "bride": [
@@ -148,6 +158,11 @@ window.INVITATION_MEDIA = {
         "bank": "하나은행",
         "number": "357-910293-60307",
         "holder": "이은지"
+      },
+      {
+        "bank": "농협",
+        "number": "352-1589-0834-53",
+        "holder": "이경환"
       }
     ]
   }
